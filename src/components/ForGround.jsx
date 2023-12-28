@@ -4,6 +4,7 @@ import Navbar from './Navbar'
 import Login from '../Pages/Login'
 import Register from '../Pages/Register'
 import List from './List'
+import Home from '../Pages/Home'
 // import Input from '../components/Input'
 
 function ForGround() {
@@ -13,7 +14,8 @@ function ForGround() {
       {/* <Register/> */}
       {/* <Login/> */}
         {/* <TaskForm/> */}
-      <List/>
+      {/* <List/> */}
+      <Home/>
     </div>
   )
 }

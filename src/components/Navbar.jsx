@@ -4,7 +4,7 @@ import { FaUserLarge } from "react-icons/fa6";
 function Navbar() {
   return (
     <div className='fixed w-full h-[6vh] top-[2%] bg-transparent-100 flex justify-between border-b border-zinc-100 border-opacity-10'>
-        <h1 className='w-[88%] flex justify-start items-center ml-16 text-2xl font-semibold tracking-widest text-gray-50 cursor-pointer'>
+        <h1 className='w-[88%] flex justify-start items-center ml-12 text-2xl font-semibold tracking-widest text-gray-50 cursor-pointer'>
             ToDo-List
         </h1>
         <div className='w-[12%] flex justify-between mr-16 items-center'>
