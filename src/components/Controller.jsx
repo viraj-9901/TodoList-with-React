@@ -3,10 +3,20 @@ import { FaPen } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
 import { FaSort } from "react-icons/fa6";
 
-function Controller() {
+
+function Controller({handleTab}) {
+  
+  function click(){
+    handleTab(true)
+  }
+  function click2(e){
+    // e.preventDefault()
+  }
+
   return (
+    <>
     <div className='w-[16%] h-full bg-transparent py-7 px-7 border-r border-zinc-100'>
-        <button className='relative w-44 h-16 rounded-lg bg-green-100 flex justify-center items-center hover:scale-[1.1] p-3'>
+        <button onClick={click} className='relative w-44 h-16 rounded-lg bg-green-100 flex justify-center items-center hover:scale-[1.1] p-3'>
           <FaPen className='text-lg mr-3'/> 
           <p className='text-lg font-medium tracking-tight'>Add Task</p>
         </button>
@@ -21,25 +31,25 @@ function Controller() {
               <div className='block mt-3 ml-8'>
                 <p className='text-lg font-medium text-white tracking-wide'>Priority</p>
                 
-                <input type='radio' name='important' id='important' value='important' checked={true}/>
-                <label for='important' className='ml-3 text-white'>important</label>
+                <input type='radio' name='important' id='important' value='important' />
+                <label htmlFor='important' className='ml-3 text-white'>important</label>
                 <br/>
                 <input type='radio' name='normal' id='normal' value='normal'/>
-                <label for='normal' className='ml-3 text-white'>normal</label>
+                <label htmlFor='normal' className='ml-3 text-white'>normal</label>
                 
               </div>
 
               <div className='block mt-4 ml-8'>
                 <p className='text-lg font-medium text-white tracking-wide'>Status</p>
                 
-                <input type='radio' name='pending' id='pending' checked={true}/>
-                <label for='pending' className='ml-3 text-white'>pending</label>
+                <input type='radio' name='pending' id='pending' />
+                <label htmlFor='pending' className='ml-3 text-white'>pending</label>
                 <br/>
                 <input type='radio' name='hold' id='hold'/>
-                <label for='hold' className='ml-3 text-white'>hold</label>
+                <label htmlFor='hold' className='ml-3 text-white'>hold</label>
                 <br/>
                 <input type='radio' name='completed' id='completed' />
-                <label for='completed' className='ml-3 text-white'>completed</label>
+                <label htmlFor='completed' className='ml-3 text-white'>completed</label>
                 
               </div>
           </div>
@@ -53,17 +63,17 @@ function Controller() {
               <div className='block mt-3 ml-8'>
                 <p className='text-lg font-medium text-white tracking-wide'>Due Date</p>
                 
-                <input type="radio" name='asc' id='asc' checked={true}/>
-                <label for='asc' className='ml-3 text-white'>Ascending </label>
+                <input type="radio" name='asc' id='asc' />
+                <label htmlFor='asc' className='ml-3 text-white'>Ascending </label>
                 <br/>
                 <input type='radio' name='dsc' id='dsc'/>
-                <label for='dsc' className='ml-3 text-white'>Descending </label>
+                <label htmlFor='dsc' className='ml-3 text-white'>Descending </label>
                 
               </div>
           </div>
 
-          <button className='relative w-44 h-8 rounded-lg bg-green-100 flex justify-center items-center p-3 mt-5'>
-            {/* <FaPen className='text-lg mr-3'/>  */}
+          <button onClick={click2} className='relative w-44 h-8 rounded-lg bg-green-100 flex justify-center items-center p-3 mt-5'>
+            
             <p className='text-lg font-medium tracking-tight'>Apply</p>
           </button>
 
@@ -74,6 +84,7 @@ function Controller() {
 
         </form>
     </div>
+    </>
   )
 }
 

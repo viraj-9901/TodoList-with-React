@@ -2,12 +2,12 @@ import React from 'react';
 
 function Register() {
   return (
-    <div class="form-wrapper min-h-screen [ p-4 md:p-6 lg:p-8 ] [ flex justify-center items-center ]">
-      <form class="signup-form max-w-sm rounded-2xl text-[#1A2421] backdrop-blur-lg [ p-8 md:p-10 lg:p-10 ] [ bg-gradient-to-b from-white/60 to-white/30 ] [ border-[1px] border-solid border-white border-opacity-10 ] [ shadow-black/70 shadow-2xl ]">
+    <div className="form-wrapper min-h-screen [ p-4 md:p-6 lg:p-8 ] [ flex justify-center items-center ]">
+      <form className="signup-form max-w-sm rounded-2xl text-[#1A2421] backdrop-blur-lg [ p-8 md:p-10 lg:p-10 ] [ bg-gradient-to-b from-white/60 to-white/30 ] [ border-[1px] border-solid border-white border-opacity-10 ] [ shadow-black/70 shadow-2xl ]">
       
-        <h3 class="mb-1 text-md text-[#1A2421]/80">Registration required!</h3>
-        <h1 class="mb-4 uppercase font-bold [ text-xl md:text-2xl lg:text-2xl ]">Register User</h1>
-        <p class="mb-4 [ text-sm text-[#1A2421]/70 text-opacity-50 ]">Enter a username, email &amp; password in the fields below to get register.</p>
+        <h3 className="mb-1 text-md text-[#1A2421]/80">Registration required!</h3>
+        <h1 className="mb-4 uppercase font-bold [ text-xl md:text-2xl lg:text-2xl ]">Register User</h1>
+        <p className="mb-4 [ text-sm text-[#1A2421]/70 text-opacity-50 ]">Enter a username, email &amp; password in the fields below to get register.</p>
       
         <div className="avatar flex justify-center">
             <div className="relative mb-4 w-24">
@@ -17,15 +17,15 @@ function Register() {
             </div>
         </div>
 
-        <label for="text" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+        <label htmlFor="text" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
           <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="text" name="username" id="username" placeholder="Username" />
         </label>
 
-        <label for="email" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+        <label htmlFor="email" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
           <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="email" name="email" id="email" placeholder="Email" />
         </label>
 
-        <label for="password" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+        <label htmlFor="password" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
           <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="password" name="password" id="password" placeholder="Password" />
         </label>
 
@@ -33,7 +33,7 @@ function Register() {
           <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] " type="file" name="profile" id="profile" placeholder="Profile Photo"/>
         </label> */}
 
-        <label for="profile" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+        <label htmlFor="profile" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
             <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
                             [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
                             [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] 

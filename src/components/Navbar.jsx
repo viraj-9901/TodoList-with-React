@@ -32,9 +32,12 @@ function Navbar() {
     { menu ? (
     <div className='fixed w-60 h-screen top-[8vh] flex flex-col bg-zinc-800/90 bg-opacity-5 border-l border-zinc-700 right-0 pt-5 z-[20]  '>
         <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-blue-300 hover:bg-opacity-25 ] mb-3'>
-            Update User
+            User Info
         </button>
         <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-indigo-300 hover:bg-opacity-25 ] mb-3'>
+            Update User
+        </button>
+        <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-violet-300 hover:bg-opacity-25 ] mb-3'>
             Logout
         </button>
     </div> ) : null

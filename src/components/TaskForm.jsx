@@ -1,74 +1,88 @@
-import React from 'react'
+import React, {useState} from 'react';
+import { motion } from "framer-motion"
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
-function TaskForm() {
+function TaskForm({handleTab, reference}) {
+    function cancelClick(){
+        handleTab(false)
+    }
+    const [calOpen, setCalOpen] = useState(false)
+    function HandleCalender(){
+        setCalOpen(!calOpen)
+    }
+
+    let ValuePiece = Date | null;
+
+    let Value = ValuePiece | [ValuePiece, ValuePiece];
+
+    const [value, onChange] = useState(new Date());
+    
   return (
-    <div className='absolute w-1/3 h-[70vh] top-1/2 left-1/2 -translate-x-[50%] -translate-y-[50%] bg-slate-200 border-solid border-1 border-slate-600 bg-opacity-10 rounded-lg'>
-        <h1 className='relative w-full h-[10%] mt-3 flex justify-center align-middle text-2xl font-semibold tracking-wider text-white'>
-        Add Task
-        </h1>
+    // <div className='relative flex justify-between top-[8vh] w-full h-full z-[50]'>
+
+        <motion.div drag dragConstraints={reference} className="form-wrapper min-h-screen [ p-4 md:p-6 lg:p-8 ] [ flex justify-center items-center ]">
+        <form class="signup-form w-[32rem] rounded-2xl text-[#1A2421] backdrop-blur-lg [ p-8 md:p-10 lg:p-10 ] [ bg-gradient-to-b from-white/60 to-white/30 ] [ border-[1px] border-solid border-white border-opacity-10 ] [ shadow-black/70 shadow-2xl ]">
         
-        <form className='relative mt-3 px-5 py-5'>
-
-            <p className='border-b border-zinc-100 mt-3 '>
-                <input type='text' name='title' placeholder='Tile' className='w-full h-10 p-3 bg-transparent text-xl text-black placeholder-gray-100 focus:placeholder-gray-700 focus:outline-none focus:bg-zinc-200'/>
-            </p>
-
-            <p className='border-b border-zinc-100 mt-5 '>
-            <textarea type='text' name='description' placeholder='Description' className='w-full h-10 p-3 bg-transparent text-xl text-black placeholder-gray-100 focus:placeholder-gray-700 focus:outline-none focus:bg-zinc-200 overflow-y-auto'/>
-            </p>
-
-            <div className='relative mt-5'>
-                <p className='border-b border-zinc-100 mt-3 bg-transparent text-white'>Priority</p>
-                {/* <div>
-                    <input type='radio' name='important' id='important' className='mr-2'/>
-                    <label for='important'>Important</label>
-                </div>
-                <div>
-                    <input type='radio' name='normal' id='normal' className='mr-2'/>
-                    <label for='normal'>Normal</label>
-                </div> */}
-                <select name='priority' className='w-full border-0 focus:border-0'>
-                    <option value="important">Important</option>
-                    <option value="normal">Normal</option>
-                </select>
-               
-            </div>
-
-            <div className='relative mt-5'>
-                <p className='border-b border-zinc-100 mt-3 bg-transparent text-white'>Status</p>
-                {/* <div>
-                    <input type='radio' name='pending' id='pending' className='mr-2' checked/>
-                    <label for='pending'>Pending</label>
-                </div>
-                <div>
-                    <input type='radio' name='hold' id='hold' className='mr-2'/>
-                    <label for='hold'>Hold</label>
-                </div>
-                <div>
-                    <input type='radio' name='completed' id='completed' className='mr-2'/>
-                    <label for='completed'>Completed</label>
-                </div> */}
-                <select name='status' className='w-full border-0 focus:border-0'>
-                    <option value="pending">Pending</option>
-                    <option value="hold">Hold</option>
-                    <option value="completed">Completed</option>
-                </select>
-               
-            </div>
-
-            <p className='border-b border-zinc-100 mt-5 bg-transparent '>
-                <input type='text' name='dueDate' placeholder='due date: YYYY-MM-DD' className='w-full h-10 p-3 bg-transparent text-xl text-black placeholder-gray-100 focus:placeholder-gray-700 focus:outline-none focus:bg-zinc-200 required'/>
-            </p>
-
-            <div className='relative mt-3 px-3 py-5 flex justify-center'>
-                <button className='w-60 rounded-lg p-3 bg-zinc-100 text-lg font-medium'>
-                Add Task
-                </button>
-            </div>
-
+            <h1 class="mb-4 uppercase font-bold [ text-xl md:text-2xl lg:text-2xl ]">TASK DETAILS</h1>
             
+
+            <label htmlFor="title" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+            <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="text" name="title" id="title" placeholder="Title" />
+            </label>
+
+            <label htmlFor="description" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+            <textarea className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="text" name="description" id="description" placeholder="Description" />
+            </label>
+
+            <label  htmlFor="dueDate" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+            <p onClick={HandleCalender}  className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" name="dueDate" id="dueDate" placeholder="dueDate: YYYY-MM-DD">{Value}</p>
+            </label>
+            {
+                calOpen?  (<Calendar onChange={console.log(value)} showWeekNumbers value={value} />) : null
+            }
+
+            <label htmlFor="priority" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333] 
+                                            ">
+                <select className='form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
+                                [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
+                                [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] '>
+                    <option >Priority</option>
+                    <option value='important'>important</option>
+                    <option value='normal'>normal</option>
+                </select>
+            </label>
+
+            <label htmlFor="status" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333] 
+                                            ">
+                <select className='form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
+                                [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
+                                [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] '>
+                    <option >Status</option>
+                    <option value='pending'>pending</option>
+                    <option value='hold'>hold</option>
+                    <option value='completed'>completed</option>
+                </select>
+            </label>
+        
+            <button className="form-input w-full rounded-lg font-bold text-white focus:outline-none
+            [ p-3 md:p-4 lg:p-4 ] 
+            [ transition-colors duration-500 ] 
+            [ bg-zinc-900 hover:bg-zinc-800 ]">
+            ADD
+            </button>
+
+
+            <button onClick={cancelClick} className="form-input w-full rounded-lg font-bold text-white focus:outline-none mt-3
+            [ p-3 md:p-4 lg:p-4 ] 
+            [ transition-colors duration-500 ] 
+            [ bg-red-800 hover:bg-red-700 ]">
+            CANCEL
+            </button>
+        
         </form>
-    </div>
+        </motion.div> 
+    // </div>
   )
 }
 
