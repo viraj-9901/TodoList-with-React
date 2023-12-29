@@ -3,12 +3,27 @@ import Card from './Card'
 
 function List() {
   return (
-    <div className='fixed top-[8vh] left-0 w-full h-full flex flex-wrap gap-10 p-5 bg-blue-200'>
+    <div className='relative w-full h-screen flex flex-wrap gap-14 p-5 bg-transparent overflow-scroll'>
         {/* {
             data.map((item,key) => (
                 <Card data={item} reference={ref} index={key}/>
             ))
         } */}
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
         <Card/>
     </div> 
   )

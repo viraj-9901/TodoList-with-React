@@ -15,7 +15,7 @@ function Card() {
   }
 
   return (
-    <div className='relative flex-shrink-0 w-60 h-80 px-8 py-8 rounded-[35px] bg-zinc-600/30 text-white overflow-hidden'>
+    <div className='relative flex-shrink-0 w-60 h-80 px-8 py-8 rounded-[35px] bg-zinc-600/30 text-white overflow-hidden mb-8'>
         <p className='text-sm font-semibold leading-tight'>Title: Dragon Ball Z 15</p>
         <p className='text-sm font-semibold leading-tight mt-5 text-balance'>Description: Goku reached to SS2 while training, Gohan surpass Goku in power., Goku reached to SS2 while training, Gohan surpass Goku in power</p>
         <p className='text-sm font-semibold leading-tight mt-5'>due-Date: 2024-01-14</p>
@@ -24,16 +24,16 @@ function Card() {
           
           <div className='relative flex justify-between items-center mb-1 pt-3 pb-2 px-8'>
             
-            <button className='w-7 h-7 rounded-full flex items-center justify-center bg-red-800 cursor-pointer'>
-              <RiDeleteBin6Line size='0.8em' color='#fff'/>
+            <button className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
+              <RiDeleteBin6Line size='0.9em' className='text-red-500'/>
             </button>
 
-            <button className='w-7 h-7 rounded-full flex items-center justify-center bg-green-800 cursor-pointer'>
-              <RxUpdate size='0.8em' color='#fff'/>
+            <button className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
+              <RxUpdate size='0.9em' className='text-green-500'/>
             </button>
 
             <button onClick={sliderShow} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
-              {sliderOpen? <RxCross1 size='0.8em' color='#fff'/> : <FaArrowDownLong size='0.8em' color='#fff'/>} 
+              {sliderOpen? <RxCross1 size='0.9em' color='#fff'/> : <FaArrowDownLong size='0.8em' color='#fff'/>} 
             </button>
 
           </div>
