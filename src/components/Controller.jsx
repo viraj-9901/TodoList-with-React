@@ -7,7 +7,8 @@ import { FaSort } from "react-icons/fa6";
 function Controller({handleTab}) {
   
   function click(){
-    handleTab(true)
+    handleTab(true,"Add",{})
+
   }
   function click2(e){
     // e.preventDefault()
