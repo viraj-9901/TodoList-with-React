@@ -3,26 +3,31 @@ import { FaPen } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
 import { FaSort } from "react-icons/fa6";
 
-
-function Controller({handleTab}) {
+function Controller({handleTab, handleQuery}) {
   
-  function click(){
+  // let [searchParams, setSearchParams] = useSearchParams();
+  
+  function addTask(){
     handleTab(true,"Add",{})
+  }
+  
+  
+  function applyQuery(e){
+  
 
   }
-  function click2(e){
-    // e.preventDefault()
-  }
+  
+
 
   return (
     <>
     <div className='w-[16%] h-full bg-transparent py-7 px-7 border-r border-zinc-100'>
-        <button onClick={click} className='relative w-44 h-16 rounded-lg bg-green-100 flex justify-center items-center hover:scale-[1.1] p-3'>
+        <button onClick={addTask} className='relative w-44 h-16 rounded-lg bg-green-100 flex justify-center items-center hover:scale-[1.1] p-3'>
           <FaPen className='text-lg mr-3'/> 
           <p className='text-lg font-medium tracking-tight'>Add Task</p>
         </button>
 
-        <form>
+        <form onSubmit={applyQuery}>
           <div className='relative w-48 h-76 mt-5 py-3'>
               <div className='heading flex justify-start items-center'>
                 <FaFilter className='text-2xl font-medium text-white'/> 
@@ -73,7 +78,7 @@ function Controller({handleTab}) {
               </div>
           </div>
 
-          <button onClick={click2} className='relative w-44 h-8 rounded-lg bg-green-100 flex justify-center items-center p-3 mt-5'>
+          <button  className='relative w-44 h-8 rounded-lg bg-green-100 flex justify-center items-center p-3 mt-5'>
             
             <p className='text-lg font-medium tracking-tight'>Apply</p>
           </button>

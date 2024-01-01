@@ -5,7 +5,7 @@ import { RxCross1 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { RxUpdate } from "react-icons/rx";
 
-function Card({handleTab, data, reference, index}) {
+function Card({handleTab, data, index}) {
 
   const [sliderOpen, setSliderOpen] = useState(false)
 
@@ -23,11 +23,9 @@ const ref = useRef()
     handleTab(true,"Update",data)
     
   }
-  // const ref = useRef()
 
   function info(e){
     e.preventDefault()
-    // console.log(e.target.parentElement);
     console.log(data);
   }
 

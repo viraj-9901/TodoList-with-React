@@ -14,11 +14,16 @@ function Home() {
     setData(info)
   }
 
+  const [query, setQuery] = useState({})
+  function handleQuery(){
+    setQuery()
+  }
+
   const ref = useRef(null);
 
   return (
     <div ref={ref} className='relative flex justify-between top-[8vh] w-full h-full'>
-        <Controller className='w-[16%]' handleTab={handleTab}/>
+        <Controller className='w-[16%]' handleTab={handleTab} handleQuery={handleQuery}/>
         <List className='w-[84%]' handleTab={handleTab}/>
         {tab? (
           <TaskForm handleTab={handleTab} reference={ref} type={btnType} data={data}/>
