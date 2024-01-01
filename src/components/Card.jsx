@@ -46,9 +46,9 @@ function Card() {
             <div className={`tag relative pb-2 px-8 block`}>
             <h3 className='text-sm font-semibold'>Priority: Important</h3>
             <h3 className='text-sm font-semibold'>Status: Pending</h3>
-            <h3 className='text-sm font-semibold flex'><FaRegFileAlt/>File.txt</h3>
-            <h3 className='text-sm font-semibold flex'><FaRegFileAlt/> Pending</h3>
-            <h3 className='text-sm font-semibold flex'><FaRegFileAlt/> Pending</h3>
+            <h3 className='text-sm font-semibold flex cursor-pointer'><FaRegFileAlt/>File.txt</h3>
+            <h3 className='text-sm font-semibold flex cursor-pointer'><FaRegFileAlt/> Pending</h3>
+            <h3 className='text-sm font-semibold flex cursor-pointer'><FaRegFileAlt/> Pending</h3>
             </div>
             ) : null
           }

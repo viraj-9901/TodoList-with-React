@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import { motion } from "framer-motion"
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 function TaskForm({handleTab, reference}) {
     function cancelClick(){
@@ -12,11 +13,19 @@ function TaskForm({handleTab, reference}) {
         setCalOpen(!calOpen)
     }
 
-    let ValuePiece = Date | null;
+    const [dueDate, setDueDate] = useState(new Date());
 
-    let Value = ValuePiece | [ValuePiece, ValuePiece];
-
-    const [value, onChange] = useState(new Date());
+    Date.prototype.dateFormat = function(dueDate){
+        let month = dueDate.getMonth();
+        let date = dueDate.getDate()
+        if(dueDate.getMonth() + 1 < 10){
+            month = '0'+ (dueDate.getMonth() + 1)
+        }
+        if(dueDate.getDate() < 10){
+            date = '0'+ dueDate.getDate() 
+        }
+        return (dueDate.getFullYear() + '-' + month + '-' + date)
+    }
     
   return (
     // <div className='relative flex justify-between top-[8vh] w-full h-full z-[50]'>
@@ -35,12 +44,18 @@ function TaskForm({handleTab, reference}) {
             <textarea className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="text" name="description" id="description" placeholder="Description" />
             </label>
 
+            {/* <label  htmlFor="dueDate" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+            <p onClick={HandleCalender}  className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" name="dueDate" id="dueDate" placeholder="dueDate: YYYY-MM-DD">{'duedate: ' + (dueDate.getFullYear()) + '-' + (dueDate.getMonth() + 1) + '-' + (dueDate.getDate())}</p>
+            </label> */}
+            
             <label  htmlFor="dueDate" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
-            <p onClick={HandleCalender}  className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" name="dueDate" id="dueDate" placeholder="dueDate: YYYY-MM-DD">{Value}</p>
+            <p onClick={HandleCalender}  className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" name="dueDate" id="dueDate" placeholder="dueDate: YYYY-MM-DD" value={dueDate.dateFormat(dueDate)}>
+            dueDate: {
+                <DatePicker showIcon selected={dueDate} onSelect={(date) => setDueDate(date)} className='bg-transparent border-0 focus:border-0' value={console.log( dueDate.dateFormat(dueDate))}/>
+            }    
+            </p>
             </label>
-            {
-                calOpen?  (<Calendar onChange={console.log(value)} showWeekNumbers value={value} />) : null
-            }
+           
 
             <label htmlFor="priority" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333] 
                                             ">
