@@ -1,9 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';  
+import axios from 'axios'
 
 function Register() {
+
+  const navigate = useNavigate()
+  const [username, setUserName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  
+  
+  const registerUser = (e) => {
+    e.preventDefault()
+
+      const formData = new FormData();
+      //formData.append('profile', e.target.profile.value.split("\\").pop());
+       formData.append("username", e.target.username.value);
+       formData.append("email", e.target.email.value);
+       formData.append("password", e.target.password.value);
+
+      
+   
+    axios.post('http://localhost:8080/user/register', formData,    
+          {
+            headers:{
+
+            'Content-Type': 'multipart/form-data'}
+          }
+          )
+         .then((response) => {
+            navigate(`/user/${response.data.data.username}/home`)
+          })
+         .catch((error) => {console.log(error);})
+  }
+
   return (
     <div className="form-wrapper min-h-screen [ p-4 md:p-6 lg:p-8 ] [ flex justify-center items-center ]">
-      <form className="signup-form max-w-sm rounded-2xl text-[#1A2421] backdrop-blur-lg [ p-8 md:p-10 lg:p-10 ] [ bg-gradient-to-b from-white/60 to-white/30 ] [ border-[1px] border-solid border-white border-opacity-10 ] [ shadow-black/70 shadow-2xl ]">
+      <form onSubmit={registerUser} className="signup-form max-w-sm rounded-2xl text-[#1A2421] backdrop-blur-lg [ p-8 md:p-10 lg:p-10 ] [ bg-gradient-to-b from-white/60 to-white/30 ] [ border-[1px] border-solid border-white border-opacity-10 ] [ shadow-black/70 shadow-2xl ]">
       
         <h3 className="mb-1 text-md text-[#1A2421]/80">Registration required!</h3>
         <h1 className="mb-4 uppercase font-bold [ text-xl md:text-2xl lg:text-2xl ]">Register User</h1>
@@ -18,39 +51,46 @@ function Register() {
         </div>
 
         <label htmlFor="text" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
-          <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="text" name="username" id="username" placeholder="Username" />
+          <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="text" name="username" id="username" placeholder="Username" value={username} onChange={(e) => setUserName(e.target.value)} />
         </label>
 
         <label htmlFor="email" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
-          <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="email" name="email" id="email" placeholder="Email" />
+          <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="email" name="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
         </label>
 
         <label htmlFor="password" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
-          <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="password" name="password" id="password" placeholder="Password" />
+          <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="password" name="password" id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
         </label>
 
-        {/* <label for="profile" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
-          <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] " type="file" name="profile" id="profile" placeholder="Profile Photo"/>
-        </label> */}
-
-        <label htmlFor="profile" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+        {/* <label htmlFor="profile" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
             <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
                             [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
                             [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] 
-                            file:bg-transparent file:border-0 file:py-2 file:hidden file:" type="file" name="profile" id="profile" placeholder="Profile Photo"/>
+                            file:bg-transparent file:border-0 file:py-2 file:hidden file:" 
+                            type="file" name="profile" id="profile" placeholder="Profile Photo" 
+                            onSelect={(value) => {
+                                let fileName = value.name;
+                                setProfile(fileName)
+                            }} value={profile} />
        
-        </label>
+        </label> */}
        
-      
-        <button className="form-input w-full rounded-lg font-bold text-white focus:outline-none
+        <button type='submit'
+          className="form-input w-full rounded-lg font-bold text-white focus:outline-none
           [ p-3 md:p-4 lg:p-4 ] 
           [ transition-colors duration-500 ] 
-          [ bg-zinc-900 hover:bg-zinc-800 ]">
+          [ bg-zinc-900 hover:bg-zinc-800 ]">  
           Register
         </button>
       
         <div className="form-footer mt-8 text-center">
-        <p className="text-xs">Already have account? <button className='text-white hover:text-green-900 [ transition-colors duration-500 ]'>Login User</button></p>
+        <p className="text-xs">Already have account? 
+          <button className='text-white hover:text-green-900 [ transition-colors duration-500 ]'>
+          <Link to='/user/login'>
+            Login User
+          </Link> 
+          </button>
+        </p>
         </div>
       </form>
     </div> 

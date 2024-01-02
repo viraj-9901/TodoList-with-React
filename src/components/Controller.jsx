@@ -3,6 +3,7 @@ import { FaPen } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
 import { FaSort } from "react-icons/fa6";
 
+
 function Controller({handleTab, handleQuery}) {
   
   // let [searchParams, setSearchParams] = useSearchParams();
@@ -13,7 +14,8 @@ function Controller({handleTab, handleQuery}) {
   
   
   function applyQuery(e){
-  
+    e.preventDefault();
+    console.log(e);
 
   }
   

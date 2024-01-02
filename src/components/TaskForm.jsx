@@ -36,7 +36,6 @@ function TaskForm({handleTab, reference, type, data}) {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log('task added');
-        // console.json(this);
         // console.log(e.target);
         // console.log(e.target.dueDate);
         // console.log(e.target.dueDate.value);

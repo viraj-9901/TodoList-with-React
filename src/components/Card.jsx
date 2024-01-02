@@ -26,7 +26,7 @@ const ref = useRef()
 
   function info(e){
     e.preventDefault()
-    console.log(data);
+    console.log(index);
   }
 
   return (
