@@ -14,22 +14,18 @@ function Register() {
     e.preventDefault()
 
       const formData = new FormData();
-      //formData.append('profile', e.target.profile.value.split("\\").pop());
        formData.append("username", e.target.username.value);
        formData.append("email", e.target.email.value);
        formData.append("password", e.target.password.value);
+       console.log(formData);
 
-      
-   
     axios.post('http://localhost:8080/user/register', formData,    
           {
-            headers:{
-
-            'Content-Type': 'multipart/form-data'}
+            headers:{'Content-Type': 'multipart/form-data'}
           }
           )
          .then((response) => {
-            navigate(`/user/${response.data.data.username}/home`)
+            navigate(`/user/login`)
           })
          .catch((error) => {console.log(error);})
   }
@@ -46,6 +42,7 @@ function Register() {
             <div className="relative mb-4 w-24">
                 <img
                     className='rounded-full'
+                    alt='profile'
                     src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
             </div>
         </div>

@@ -2,8 +2,11 @@ import React, {useState} from 'react';
 import { FaUserLarge } from "react-icons/fa6";
 import { Link, useNavigate } from 'react-router-dom';  
 import axios from 'axios'
+import {useDispatch} from 'react-redux';
+import {logout as authLogout} from '../store/authSlice'
 
 function Navbar() {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [menu, setMenu] = useState(false)
 
@@ -12,8 +15,13 @@ function Navbar() {
     }
 
     function logoutUser(){
-        axios.post('http://localhost:8080/user/logout')
-            .then(navigate(`/`))
+        axios.post('http://localhost:8080/user/logout',{},{
+            withCredentials: true,
+        })
+            .then(
+                dispatch(authLogout(false)),
+                navigate('/')
+            )
             .catch((error) => {console.log(error);})
         
          handleMenu()

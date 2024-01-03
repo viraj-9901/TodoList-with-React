@@ -4,11 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import ForGround from './components/ForGround';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
-import TaskForm from './components/TaskForm';
+import { Provider } from 'react-redux';
+import store from './store/Store'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <Login/>
       },
       {
-        path: '/user/:username/home',
+        path: '/user/:username',
         element: <Home/>
       },
       // {
@@ -38,7 +38,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 

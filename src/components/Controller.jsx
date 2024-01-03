@@ -4,7 +4,7 @@ import { FaFilter } from "react-icons/fa";
 import { FaSort } from "react-icons/fa6";
 
 
-function Controller({handleTab, handleQuery}) {
+function Controller({handleTab}) {
   
   // let [searchParams, setSearchParams] = useSearchParams();
   

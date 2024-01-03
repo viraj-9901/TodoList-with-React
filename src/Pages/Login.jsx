@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';  
 import axios from 'axios'
+import {useDispatch} from 'react-redux';
+import {login as authLogin} from '../store/authSlice'
 
 function Login() {
   
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,15 +20,15 @@ function Login() {
 
     axios.post('http://localhost:8080/user/login', formData,    
           {
-            headers:{
-
-            'Content-Type': 'multipart/form-data'}
+            headers:{'Content-Type': 'multipart/form-data'},
+            withCredentials: true,
           }
           )
          .then((response) => {
             // console.log(response);
             // console.log(response.data.data.user.username);
-            navigate(`/user/${response.data.data.user.username}/home`)
+            navigate(`/user/${response.data.data.user.username}`)
+            dispatch(authLogin(true))
           })
          .catch((error) => {console.log(error);})
 

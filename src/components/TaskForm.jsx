@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { motion } from "framer-motion"
 import DatePicker from "react-datepicker";
+import axios from 'axios'
+
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -33,19 +35,31 @@ function TaskForm({handleTab, reference, type, data}) {
     const [priority, setPriority] = useState(data.priority || "")
     const [status, setStatus] = useState(data.status || "")
 
-    const handleSubmit = (e) => {
+    const username = window.location.pathname.split('/')[2]
+    
+    const taskSubmit = (e) => {
         e.preventDefault()
-        console.log('task added');
-        // console.log(e.target);
-        // console.log(e.target.dueDate);
-        // console.log(e.target.dueDate.value);
-        console.log({
-                title: e.target.title.value,
-                description: e.target.description.value,
-                duedate: e.target.dueDate.value,
-                priority: e.target.priority.value,
-                status: e.target.status.value
-            })
+        // console.log(username);
+
+        const formData = new FormData();
+        formData.append('title',e.target.title.value);
+        formData.append('description',e.target.description.value);
+        formData.append('dueDate',e.target.dueDate.value);
+        formData.append('priority',e.target.priority.value);
+        formData.append('status',e.target.status.value);
+        // console.log(formData);
+
+        // if(type == 'add'){
+            axios.post(`http://localhost:8080/user/${username}`, formData, 
+            {
+                withCredentials: true,
+                headers:{'Content-Type': 'multipart/form-data'},
+            }
+            )
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error))
+        // }
+
         cancelClick()
     }   
     
@@ -53,7 +67,7 @@ function TaskForm({handleTab, reference, type, data}) {
     // <div className='relative flex justify-between top-[8vh] w-full h-full z-[50]'>
 
         <motion.div drag dragConstraints={reference} className="form-wrapper min-h-screen [ p-4 md:p-6 lg:p-8 ] [ flex justify-center items-center ]">
-        <form onSubmit={handleSubmit} className="signup-form w-[32rem] rounded-2xl text-[#1A2421] backdrop-blur-lg 
+        <form onSubmit={taskSubmit} className="signup-form w-[32rem] rounded-2xl text-[#1A2421] backdrop-blur-lg 
                         [ p-8 md:p-10 lg:p-10 ] [ bg-gradient-to-b from-white/60 to-white/30 ] 
                         [ border-[1px] border-solid border-white border-opacity-10 ] [ shadow-black/70 shadow-2xl ]">
         

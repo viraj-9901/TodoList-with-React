@@ -1,8 +1,8 @@
 import React from 'react'
 import Navbar from './Navbar'
-import Login from '../Pages/Login'
-import Register from '../Pages/Register'
-import Home from '../Pages/Home'
+// import Login from '../Pages/Login'
+// import Register from '../Pages/Register'
+// import Home from '../Pages/Home'
 import { Outlet } from 'react-router-dom'
 
 

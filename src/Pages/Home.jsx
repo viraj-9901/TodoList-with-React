@@ -2,12 +2,8 @@ import React, { useState, useRef } from 'react'
 import Controller from '../components/Controller'
 import List from '../components/List'
 import TaskForm from '../components/TaskForm'
-import { Link, useNavigate } from 'react-router-dom'
-
 
 function Home() {
-
-  const navigate = useNavigate()
 
   const [tab, setTab] = useState(false)
   const [btnType, setBtnType] = useState("");
@@ -17,21 +13,18 @@ function Home() {
     setTab(value)
     setBtnType(type)
     setData(info)
-    // navigate(`/user/:username/home/${info}`)
-    
-   
   }
 
-  const [query, setQuery] = useState({})
-  function handleQuery(){
-    setQuery()
-  }
+  // const [query, setQuery] = useState({})
+  // function handleQuery(){
+  //   setQuery()
+  // }
 
   const ref = useRef(null);
 
   return (
     <div ref={ref} className='relative flex justify-between top-[8vh] w-full h-full'>
-        <Controller className='w-[16%]' handleTab={handleTab} handleQuery={handleQuery}/>
+        <Controller className='w-[16%]' handleTab={handleTab} />
         <List className='w-[84%]' handleTab={handleTab}/>
         
         {tab? (
