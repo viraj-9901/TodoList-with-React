@@ -3,6 +3,7 @@ import { FaPen } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa";
 import { FaSort } from "react-icons/fa6";
 import axios from 'axios'
+import toast from 'react-hot-toast';
 
 function Controller({handleTab, taskList}) {
   
@@ -28,8 +29,9 @@ function Controller({handleTab, taskList}) {
       {
         withCredentials: true,  
       })
+    toast.success("Task filtered!")
     let tasks = response.data.message                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-    console.log("this tasks from applyQuery: ",tasks);
+    // console.log("this tasks from applyQuery: ",tasks);
     taskList(tasks)
   }
 
@@ -46,10 +48,11 @@ function Controller({handleTab, taskList}) {
       {
         withCredentials: true,  
       })
-
-      let tasks = response.data.message
-      console.log("this tasks from controller :", tasks);
-      taskList(tasks)
+    
+    toast.success("Filter reset")
+    let tasks = response.data.message
+    // console.log("this tasks from controller :", tasks);
+    taskList(tasks)
   }
 
   function handleChange(name,value){

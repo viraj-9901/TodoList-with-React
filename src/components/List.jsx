@@ -22,7 +22,7 @@ function List({reference, handleTab, listData, taskList}) {
         setData(response.data.message)
       })()
     }
-  },[authStatus])
+  },[authStatus,username])
 
   function refreshData(value) {
     taskList(value)
@@ -32,7 +32,7 @@ function List({reference, handleTab, listData, taskList}) {
   return (
     <div ref={ref} className='relative w-full h-screen flex flex-wrap gap-14 p-5 bg-transparent overflow-scroll'>
         {
-          (listData.length != 0) ? 
+          (listData.length !== 0) ? 
           (
             listData.map((item,key) => (
               <Card data={item} reference={ref} index={key} handleTab={handleTab} refreshData={refreshData} />

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import Controller from '../components/Controller'
 import List from '../components/List'
 import TaskForm from '../components/TaskForm'

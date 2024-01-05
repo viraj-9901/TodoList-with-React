@@ -4,11 +4,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import {useDispatch} from 'react-redux';
 import {logout as authLogout} from '../store/authSlice'
+import {useSelector} from 'react-redux'
+import toast from 'react-hot-toast';
 
 function Navbar() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [menu, setMenu] = useState(false)
+
+    const authStatus = useSelector((state) => state.auth.status)
 
     function handleMenu(){
         setMenu(!menu)
@@ -18,13 +22,14 @@ function Navbar() {
         axios.post('http://localhost:8080/user/logout',{},{
             withCredentials: true,
         })
-            .then(
-                dispatch(authLogout(false)),
+            .then((response) => {
+                dispatch(authLogout(false))
                 navigate('/')
-            )
-            .catch((error) => {console.log(error);})
+                toast.success(response.data.message)
+            })
+            .catch((error) => toast.error(error.response.data.error.message))
         
-         handleMenu()
+        handleMenu()
     }
 
   return (
@@ -36,15 +41,22 @@ function Navbar() {
             </Link> 
         </h1>
         <div className='w-[12%] flex justify-between mr-16 items-center'>
-            <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-blue-300 hover:bg-opacity-25 ] hover:bottom-[5%] mr-2'>
+            <button className={`relative rounded-lg font-semibold text-white items-center focus:outline-none 
+                               [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] 
+                            [ bg-transparent hover:bg-blue-300 hover:bg-opacity-25 ] hover:bottom-[5%] mr-2
+                            ${(authStatus === true)? "opacity-0" : "opacity-100"}`}>
                 <Link to='/user/register'>
                     Register
                 </Link> 
             </button>
-            <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-indigo-300 hover:bg-opacity-25 ] hover:bottom-[5%] mr-2'>
-            <Link to='/user/login'>
-                Login
-            </Link> 
+
+            <button className={`relative rounded-lg font-semibold text-white items-center focus:outline-none 
+                              [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] 
+                              [ bg-transparent hover:bg-indigo-300 hover:bg-opacity-25 ] hover:bottom-[5%] mr-2
+                              ${(authStatus === true)? "opacity-0" : "opacity-100"}`}>
+                <Link to='/user/login'>
+                    Login
+                </Link> 
             </button>
 
             <button onClick={handleMenu} className='relative rounded-full font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-purple-300 hover:bg-opacity-25 ] hover:bottom-[5%]'>
@@ -53,17 +65,20 @@ function Navbar() {
         </div>
     </div>
 
-    { menu ? (
+    { ( menu && authStatus ) ? (
     <div className='fixed w-60 h-screen top-[8vh] flex flex-col bg-zinc-800/90 bg-opacity-5 border-l border-zinc-700 right-0 pt-5 z-[20]  '>
-        <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-blue-300 hover:bg-opacity-25 ] mb-3'>
+        <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none 
+                          [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-blue-300 hover:bg-opacity-25 ] mb-3'>
             User Info
         </button>
-        <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-indigo-300 hover:bg-opacity-25 ] mb-3'>
+        <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none 
+                          [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-indigo-300 hover:bg-opacity-25 ] mb-3'>
             Update User
         </button>
         
-        <button onClick={logoutUser} className='relative rounded-lg font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-violet-300 hover:bg-opacity-25 ] mb-3'>
-                Logout
+        <button onClick={logoutUser} className='relative rounded-lg font-semibold text-white items-center focus:outline-none 
+                                                [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-violet-300 hover:bg-opacity-25 ] mb-3'>
+            Logout
         </button>
     </div> ) : null
     }

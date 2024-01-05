@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';  
-import axios from 'axios'
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function Register() {
 
@@ -26,8 +27,9 @@ function Register() {
           )
          .then((response) => {
             navigate(`/user/login`)
+            toast.success(response.data.message);
           })
-         .catch((error) => {console.log(error);})
+         .catch((error) => toast.error(error.response.data.error.message))
   }
 
   return (

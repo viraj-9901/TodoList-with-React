@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';  
 import axios from 'axios'
 import {useDispatch} from 'react-redux';
-import {login as authLogin} from '../store/authSlice'
+import {login as authLogin} from '../store/authSlice';
+import toast from 'react-hot-toast';
 
 function Login() {
   
@@ -25,12 +26,12 @@ function Login() {
           }
           )
          .then((response) => {
-            // console.log(response);
-            // console.log(response.data.data.user.username);
             navigate(`/user/${response.data.data.user.username}`)
             dispatch(authLogin(true))
+            toast.success(response.data.message);
+            console.log(response);
           })
-         .catch((error) => {console.log(error);})
+         .catch((error) => toast.error(error.response.data.error.message))
 
   }
   return (

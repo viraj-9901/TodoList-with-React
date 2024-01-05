@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { motion } from "framer-motion"
 import DatePicker from "react-datepicker";
 import axios from 'axios'
-
+import toast from 'react-hot-toast';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -41,18 +41,21 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
         formData.append('priority',e.target.priority.value);
         formData.append('status',e.target.status.value);
 
-        if(type[1] == 'POST'){
+        if(type[1] === 'POST'){
             axios.post(`http://localhost:8080/user/${username}`, formData, 
             {
                 withCredentials: true,
                 headers:{'Content-Type': 'multipart/form-data'},
             }
             )
-            .then((response) => console.log(response))
-            .catch((error) => console.log(error))
+            .then((response) => {
+                console.log(response)
+                toast.success("Task add successfully!")
+            })
+            .catch((error) => toast.error(error.response.data.error.message))
         }
 
-        if(type[1] == 'PUT'){
+        if(type[1] === 'PUT'){
             let taskId = data._id
             axios.put(`http://localhost:8080/user/${username}/${taskId}`, formData,
             {
@@ -60,8 +63,11 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
                 headers:{'Content-Type': 'multipart/form-data'},
             }
             )
-            .then((response) => console.log(response))
-            .catch((error) => console.log(error))
+            .then((response) => {
+                console.log(response)
+                toast.success("Task update successfully!")
+            })
+            .catch((error) => toast.error(error.response.data.error.message))
         }
 
 
