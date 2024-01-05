@@ -8,15 +8,13 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function TaskForm({handleTab, reference, type, data, taskList}) {
     
-    function cancelClick(){
-        handleTab(false)
-    }
     const [calOpen, setCalOpen] = useState(false)
-    function HandleCalender(){
-        setCalOpen(!calOpen)
-    }
 
+    const [title, setTitle] = useState(data.title || "")
+    const [description, setDescription] = useState(data.description || "")
     const [dueDate, setDueDate] = useState(new Date());
+    const [priority, setPriority] = useState(data.priority || "")
+    const [status, setStatus] = useState(data.status || "")
 
     Date.prototype.dateFormat = function(dueDate){
         let month = dueDate.getMonth();
@@ -30,16 +28,11 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
         return (dueDate.getFullYear() + '-' + month + '-' + date)
     }
 
-    const [title, setTitle] = useState(data.title || "")
-    const [description, setDescription] = useState(data.description || "")
-    const [priority, setPriority] = useState(data.priority || "")
-    const [status, setStatus] = useState(data.status || "")
-
     const username = window.location.pathname.split('/')[2]
     
+    //function: add/update task
     const taskSubmit = (e) => {
         e.preventDefault()
-        // console.log(username);
 
         const formData = new FormData();
         formData.append('title',e.target.title.value);
@@ -48,16 +41,30 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
         formData.append('priority',e.target.priority.value);
         formData.append('status',e.target.status.value);
 
-        // if(type == 'add'){
-        axios.post(`http://localhost:8080/user/${username}`, formData, 
-        {
-            withCredentials: true,
-            headers:{'Content-Type': 'multipart/form-data'},
+        if(type[1] == 'POST'){
+            axios.post(`http://localhost:8080/user/${username}`, formData, 
+            {
+                withCredentials: true,
+                headers:{'Content-Type': 'multipart/form-data'},
+            }
+            )
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error))
         }
-        )
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error))
-        // }
+
+        if(type[1] == 'PUT'){
+            let taskId = data._id
+            axios.put(`http://localhost:8080/user/${username}/${taskId}`, formData,
+            {
+                withCredentials: true,
+                headers:{'Content-Type': 'multipart/form-data'},
+            }
+            )
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error))
+        }
+
+
 
         axios.get(`http://localhost:8080/user/${username}`,
         {
@@ -68,6 +75,16 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
 
         cancelClick()
     }   
+
+    //function: cancel task form
+    function cancelClick(){
+        handleTab(false)
+    }
+
+    //function: control of calender 
+    function HandleCalender(){
+        setCalOpen(!calOpen)
+    }
     
   return (
     // <div className='relative flex justify-between top-[8vh] w-full h-full z-[50]'>
@@ -81,18 +98,19 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
             
 
             <label htmlFor="title" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
-            <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="text" name="title" id="title" placeholder="Title" value={title || data.title} onChange={(e) => setTitle(e.target.value)} />
+            <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" 
+                   type="text" name="title" id="title" placeholder="Title" value={title || data.title} 
+                   onChange={(e) => setTitle(e.target.value)} 
+            />
             </label>
 
             <label htmlFor="description" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
-            <textarea className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" type="text" name="description" id="description" placeholder="Description" value={description || data.description} onChange={(e) => setDescription(e.target.value)} />
+            <textarea className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" 
+                      type="text" name="description" id="description" placeholder="Description" value={description || data.description} 
+                      onChange={(e) => setDescription(e.target.value)} 
+            />
             </label>
-
-            {/* <label  htmlFor="dueDate" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
-            <p onClick={HandleCalender}  className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" name="dueDate" id="dueDate" placeholder="dueDate: YYYY-MM-DD">{'duedate: ' + (dueDate.getFullYear()) + '-' + (dueDate.getMonth() + 1) + '-' + (dueDate.getDate())}</p>
-            </label> */}
-            {/* value={dueDate.dateFormat(dueDate)} */}
-            
+  
             <label  htmlFor="dueDate" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
             <p onClick={HandleCalender}  className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" name="dueDate" >
             dueDate: {
@@ -133,7 +151,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
             [ p-3 md:p-4 lg:p-4 ] 
             [ transition-colors duration-500 ] 
             [ bg-zinc-900 hover:bg-zinc-800 ]">
-            {type}
+            {type[0]} Task
             </button>
 
 

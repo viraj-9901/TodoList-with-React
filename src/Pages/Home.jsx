@@ -6,11 +6,11 @@ import TaskForm from '../components/TaskForm'
 function Home() {
 
   const [tab, setTab] = useState(false)
-  const [btnType, setBtnType] = useState("");
+  const [btnType, setBtnType] = useState([]);
   const [data, setData] = useState("")
   const [listData, setListData] = useState([])
 
-  function handleTab(value,type,info){
+  function handleTab(value,type,info,){
     setTab(value)
     setBtnType(type)
     setData(info)

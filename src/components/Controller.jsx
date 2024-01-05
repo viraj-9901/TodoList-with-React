@@ -15,7 +15,11 @@ function Controller({handleTab, taskList}) {
   const username = window.location.pathname.split('/')[2]
 
   function addTask(){
-    handleTab(true,"Add",{})
+    handleTab(
+      true,
+      ['Add',"POST"],
+      {}
+    )
   }
   
   async function applyQuery(e){

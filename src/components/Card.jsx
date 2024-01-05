@@ -22,8 +22,11 @@ function Card({handleTab, data, index, refreshData}) {
 
   function click(e){
     e.preventDefault()
-    handleTab(true,"Update",data)
-    
+    handleTab(
+      true,
+      ['Update',"PUT"],
+      data
+    ) 
   }
 
   function deleteTask(e){
