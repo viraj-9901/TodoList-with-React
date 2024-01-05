@@ -3,50 +3,46 @@ import Card from './Card'
 import axios from 'axios'
 import {useSelector} from 'react-redux'
 
-function List({reference, handleTab, listData}) {
+function List({reference, handleTab, listData, taskList}) {
   const ref = useRef(null)
 
   const authStatus = useSelector((state) => state.auth.status)
-  const [data, setData] = useState(listData)
-
+  const [data, setData] = useState([])
+  
   const username = window.location.pathname.split('/')[2]
   
   useEffect(() => {
-
+    console.log("I'm reaced here at List component");
     if(authStatus === true){
       (async () => { 
-        let response = axios.get(`http://localhost:8080/user/${username}`,
+        let response = await axios.get(`http://localhost:8080/user/${username}`,
           {
-            withCredentials: true,  
+            withCredentials: true 
           })
-          .then(response => setData(response.data.message))
-          .catch((error) => console.log(error))
+        setData(response.data.message)
       })()
     }
-  },[authStatus,data])
+  },[authStatus])
 
-    // {
-    //   title:'test1',
-    //   description: 'test1 description',
-    //   dueDate: '2024-01-05',
-    //   priority: 'important',
-    //   status: 'hold'
-    // },
-  
+  function refreshData(value) {
+    taskList(value)
+  }
 
   // let filteredData = data.filter(task => task.priority === "important" && task.status === "hold");
   return (
     <div ref={ref} className='relative w-full h-screen flex flex-wrap gap-14 p-5 bg-transparent overflow-scroll'>
         {
-          data.map((item,key) => (
-            <Card data={item} reference={ref} index={key} handleTab={handleTab}/>
-          ))
-        }
-        {/* <Card handleTab={handleTab} data={this}/>
-        <Card handleTab={handleTab}/> */}
-        
-
-        
+          (listData.length != 0) ? 
+          (
+            listData.map((item,key) => (
+              <Card data={item} reference={ref} index={key} handleTab={handleTab} refreshData={refreshData} />
+            ))
+          ) : (
+            data.map((item,key) => (
+              <Card data={item} reference={ref} index={key} handleTab={handleTab} refreshData={refreshData} />
+            ))
+          )
+        }  
     </div> 
   )
 }

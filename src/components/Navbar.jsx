@@ -43,8 +43,8 @@ function Navbar() {
             </button>
             <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-indigo-300 hover:bg-opacity-25 ] hover:bottom-[5%] mr-2'>
             <Link to='/user/login'>
-                    Login
-                </Link> 
+                Login
+            </Link> 
             </button>
 
             <button onClick={handleMenu} className='relative rounded-full font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-purple-300 hover:bg-opacity-25 ] hover:bottom-[5%]'>

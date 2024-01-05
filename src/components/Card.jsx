@@ -4,9 +4,11 @@ import { FaArrowDownLong } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { RxUpdate } from "react-icons/rx";
+import axios from 'axios'
 
-function Card({handleTab, data, index}) {
+function Card({handleTab, data, index, refreshData}) {
 
+  const username = window.location.pathname.split('/')[2]
   const [sliderOpen, setSliderOpen] = useState(false)
 
   function sliderShow() {
@@ -24,9 +26,26 @@ function Card({handleTab, data, index}) {
     
   }
 
-  function info(e){
+  function deleteTask(e){
     e.preventDefault()
-    console.log(index);
+    let taskId = data._id
+
+    //delete task request
+    axios.delete(`http://localhost:8080/user/${username}/${taskId}`,
+      {
+        withCredentials: true,  
+      })
+      .then(response => console.log(response))
+      .catch((error) => console.log(error))
+
+    //request: get all tasks after delete one task
+    axios.get(`http://localhost:8080/user/${username}`,
+    {
+      withCredentials: true,  
+    })
+      .then(response => refreshData(response.data.message))
+      .catch((error) => console.log(error))
+ 
   }
 
   return (
@@ -39,7 +58,7 @@ function Card({handleTab, data, index}) {
           
           <div className='relative flex justify-between items-center mb-1 pt-3 pb-2 px-8'>
             
-            <button onClick={info} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
+            <button onClick={deleteTask} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
               <RiDeleteBin6Line size='0.9em' className='text-red-500'/>
             </button>
 

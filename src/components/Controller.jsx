@@ -6,7 +6,6 @@ import axios from 'axios'
 
 function Controller({handleTab, taskList}) {
   
-  // const [data, setData] = useState([])
   const [formData, setFormData] = useState({
     priority:"",
     status:"",
@@ -25,11 +24,8 @@ function Controller({handleTab, taskList}) {
       {
         withCredentials: true,  
       })
-      // .then(response => setData(response.data.message))
-      // .then(console.log(data))
-      // .catch((error) => console.log(error))
-      // .finally(taskList(data))
-    let tasks = response.data.message
+    let tasks = response.data.message                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+    console.log("this tasks from applyQuery: ",tasks);
     taskList(tasks)
   }
 
@@ -46,11 +42,9 @@ function Controller({handleTab, taskList}) {
       {
         withCredentials: true,  
       })
-      // .then(response => setData(response.data.message))
-      // .then(console.log(data))
-      // .catch((error) => console.log(error))
 
       let tasks = response.data.message
+      console.log("this tasks from controller :", tasks);
       taskList(tasks)
   }
 
@@ -77,7 +71,7 @@ function Controller({handleTab, taskList}) {
               <div className='block mt-3 ml-8'>
                 <p className='text-lg font-medium text-white tracking-wide'>Priority</p>
                
-                <input type='radio' name='priority' id='important' onChange={() => handleChange('priority','important')}/>
+                <input type='radio' name='priority' id='important' onChange={() => handleChange('priority','important')} defaultChecked={true}/>
                 <label htmlFor='important' className='ml-3 text-white'>important</label>
                 <br/>
                 <input type='radio' name='priority' id='normal'  onChange={() => handleChange('priority','normal')}/>
@@ -88,7 +82,7 @@ function Controller({handleTab, taskList}) {
               <div className='block mt-4 ml-8'>
                 <p className='text-lg font-medium text-white tracking-wide'>Status</p>
                 
-                <input type='radio' name='status' id='pending'  onChange={() => handleChange('status','pending')}/>
+                <input type='radio' name='status' id='pending'  onChange={() => handleChange('status','pending')} defaultChecked={true}/>
                 <label htmlFor='pending' className='ml-3 text-white'>pending</label>
                 <br/>
                 <input type='radio' name='status' id='hold'  onChange={() => handleChange('status','hold')}/>
@@ -125,6 +119,11 @@ function Controller({handleTab, taskList}) {
           <button onClick={resetFilter} className='relative w-44 h-8 rounded-lg bg-green-100 flex justify-center items-center p-3 mt-5'>
             {/* <FaPen className='text-lg mr-3'/>  */}
             <p className='text-lg font-medium tracking-tight'>Reset</p>
+          </button>
+
+          <button onClick={resetFilter} className='relative w-44 h-8 rounded-lg bg-green-100 flex justify-center items-center p-3 mt-5'>
+            {/* <FaPen className='text-lg mr-3'/>  */}
+            <p className='text-lg font-medium tracking-tight'>Get All Tasks</p>
           </button>
 
         </form>

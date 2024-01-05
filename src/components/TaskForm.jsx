@@ -6,7 +6,7 @@ import axios from 'axios'
 
 import "react-datepicker/dist/react-datepicker.css";
 
-function TaskForm({handleTab, reference, type, data}) {
+function TaskForm({handleTab, reference, type, data, taskList}) {
     
     function cancelClick(){
         handleTab(false)
@@ -47,18 +47,24 @@ function TaskForm({handleTab, reference, type, data}) {
         formData.append('dueDate',e.target.dueDate.value);
         formData.append('priority',e.target.priority.value);
         formData.append('status',e.target.status.value);
-        // console.log(formData);
 
         // if(type == 'add'){
-            axios.post(`http://localhost:8080/user/${username}`, formData, 
-            {
-                withCredentials: true,
-                headers:{'Content-Type': 'multipart/form-data'},
-            }
-            )
-            .then((response) => console.log(response))
-            .catch((error) => console.log(error))
+        axios.post(`http://localhost:8080/user/${username}`, formData, 
+        {
+            withCredentials: true,
+            headers:{'Content-Type': 'multipart/form-data'},
+        }
+        )
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error))
         // }
+
+        axios.get(`http://localhost:8080/user/${username}`,
+        {
+        withCredentials: true,  
+        })
+        .then(response => taskList(response.data.message))
+        .catch((error) => console.log(error))
 
         cancelClick()
     }   
