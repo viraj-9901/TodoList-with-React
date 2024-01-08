@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Register from './Pages/Register';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
+import ChangePassword from './components/ChangePassword';
 import { Provider } from 'react-redux';
 import store from './store/Store'
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: '/user/:username',
         element: <Home/>
+      },
+      {
+        path: '/user/:username/changePassword',
+        element: <ChangePassword/>
       },
       // {
       //   path: '/user/:username/addTask',

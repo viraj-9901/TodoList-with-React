@@ -79,7 +79,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
         .then(response => taskList(response.data.message))
         .catch((error) => console.log(error))
 
-        cancelClick()
+        // cancelClick()
     }   
 
     //function: cancel task form
