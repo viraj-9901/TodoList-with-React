@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import store from './store/Store'
 import UpdateUser from './components/UpdateUser';
 import UpdateAvatar from './components/UpdateAvatar';
+import PageNotFound from './Pages/PageNotFound';
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,12 @@ const router = createBrowserRouter([
       {
         path: '/user/:username/avatar',
         element: <UpdateAvatar/>
-      }
+      },
+      {
+        path: '*',
+        element: <PageNotFound/>
+      },
+      
 
     ]
   }
