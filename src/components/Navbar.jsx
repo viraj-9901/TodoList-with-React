@@ -46,7 +46,9 @@ function Navbar() {
             <button className={`relative rounded-lg font-semibold text-white items-center focus:outline-none 
                                [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] 
                             [ bg-transparent hover:bg-blue-300 hover:bg-opacity-25 ] hover:bottom-[5%] mr-2
-                            ${(authStatus === true)? "opacity-0" : "opacity-100"}`}>
+                            ${(authStatus === true)? "invisible pointer-events-none" : "visible"}`}
+                           
+            >
                 <Link to='/user/register'>
                     Register
                 </Link> 
@@ -55,7 +57,9 @@ function Navbar() {
             <button className={`relative rounded-lg font-semibold text-white items-center focus:outline-none 
                               [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] 
                               [ bg-transparent hover:bg-indigo-300 hover:bg-opacity-25 ] hover:bottom-[5%] mr-2
-                              ${(authStatus === true)? "opacity-0" : "opacity-100"}`}>
+                              ${(authStatus === true)? "opacity-0 pointer-events-none" : "opacity-100"} `}
+                    disabled={authStatus}
+            >
                 <Link to='/user/login'>
                     Login
                 </Link> 
