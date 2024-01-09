@@ -16,7 +16,7 @@ function UpdateUser() {
   const [email, setEmail] = useState(user.email || "");
   
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     e.preventDefault()
 
     const username = window.location.pathname.split('/')[2]
@@ -25,7 +25,7 @@ function UpdateUser() {
     formData.append("username", e.target.username.value);
     formData.append("email", e.target.email.value);
 
-    axios.put(`http://localhost:8080/user/${username}`, formData,    
+    await axios.put(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`, formData,    
           {
             headers:{'Content-Type': 'multipart/form-data'},
             withCredentials: true,

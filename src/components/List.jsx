@@ -15,7 +15,7 @@ function List({reference, handleTab, listData, taskList}) {
     console.log("I'm reaced here at List component");
     if(authStatus === true){
       (async () => { 
-        let response = await axios.get(`http://localhost:8080/user/${username}`,
+        let response = await axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`,
           {
             withCredentials: true 
           })

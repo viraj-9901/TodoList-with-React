@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';  
+import { useNavigate } from 'react-router-dom';  
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -19,7 +19,7 @@ function UpdateAvatar() {
     
     formData.append('profile', image)
 
-    await axios.post(`http://localhost:8080/user/${username}/uploadProfile`,formData,
+    await axios.post(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/uploadProfile`,formData,
     {
         headers:{'Content-Type': 'multipart/form-data'},
         withCredentials: true,

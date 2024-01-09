@@ -15,6 +15,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
     const [dueDate, setDueDate] = useState(new Date());
     const [priority, setPriority] = useState(data.priority || "")
     const [status, setStatus] = useState(data.status || "")
+    const [attachment, setAttachment] = useState(data.files || [])
 
     Date.prototype.dateFormat = function(dueDate){
         let month = dueDate.getMonth();
@@ -32,8 +33,10 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
     const formData = new FormData();
     
     //function: add/update task
-    const taskSubmit = (e) => {
+    const taskSubmit = async (e) => {
         e.preventDefault()
+
+        let attachments = e.target.attachment.files.length
 
         formData.append('title',e.target.title.value);
         formData.append('description',e.target.description.value);
@@ -41,8 +44,13 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
         formData.append('priority',e.target.priority.value);
         formData.append('status',e.target.status.value);
 
+
+        for(let i = 0; i < attachments; i ++){
+            formData.append('files',e.target.attachment.files[i]);
+        }
+
         if(type[1] === 'POST'){
-            axios.post(`http://localhost:8080/user/${username}`, formData, 
+            await axios.post(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`, formData, 
             {
                 withCredentials: true,
                 headers:{'Content-Type': 'multipart/form-data'},
@@ -57,7 +65,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
 
         if(type[1] === 'PUT'){
             let taskId = data._id
-            axios.put(`http://localhost:8080/user/${username}/${taskId}`, formData,
+            await axios.put(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${taskId}`, formData,
             {
                 withCredentials: true,
                 headers:{'Content-Type': 'multipart/form-data'},
@@ -70,9 +78,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
             .catch((error) => toast.error(error.response.data.error.message))
         }
 
-
-
-        axios.get(`http://localhost:8080/user/${username}`,
+        await axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`,
         {
         withCredentials: true,  
         })
@@ -125,32 +131,45 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
             </p>
             </label>
            
+            <div className='relative flex flex-row justify-around'>
+                <label htmlFor="priority" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333] 
+                                                ">
+                    <select className='form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
+                                    [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
+                                    [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] '
+                            id='priority' value={priority || data.priority} onChange={(e) => setPriority(e.target.value)}
+                    >
+                        <option >Priority</option>
+                        <option value='important'>important</option>
+                        <option value='normal'>normal</option>
+                    </select>
+                </label>
 
-            <label htmlFor="priority" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333] 
-                                            ">
-                <select className='form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
-                                [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
-                                [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] '
-                        id='priority' value={priority || data.priority} onChange={(e) => setPriority(e.target.value)}
-                >
-                    <option >Priority</option>
-                    <option value='important'>important</option>
-                    <option value='normal'>normal</option>
-                </select>
-            </label>
+                <label htmlFor="status" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333] 
+                                                ">
+                    <select className='form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
+                                    [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
+                                    [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] '
+                            id='status'  value={status || data.status} onChange={(e) => setStatus(e.target.value)}           
+                    >
+                        <option >Status</option>
+                        <option value='pending'>pending</option>
+                        <option value='hold'>hold</option>
+                        <option value='completed'>completed</option>
+                    </select>
+                </label>
+            </div>
 
-            <label htmlFor="status" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333] 
-                                            ">
-                <select className='form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
-                                [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
-                                [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] '
-                        id='status'  value={status || data.status} onChange={(e) => setStatus(e.target.value)}           
-                >
-                    <option >Status</option>
-                    <option value='pending'>pending</option>
-                    <option value='hold'>hold</option>
-                    <option value='completed'>completed</option>
-                </select>
+            <label htmlFor="attachment" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+            <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
+                            [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
+                            [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] 
+                            file:bg-transparent file:border-0 file:py-2 file:hidden file:" 
+                            type="file" name="attachment" id="attachment" placeholder="attachment(s)" 
+                            onSelect={(value) => {
+                                setAttachment(value)
+                            }}  multiple/>
+       
             </label>
         
             <button type='submit' className="form-input w-full rounded-lg font-bold text-white focus:outline-none

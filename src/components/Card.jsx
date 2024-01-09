@@ -11,16 +11,13 @@ function Card({handleTab, data, index, refreshData}) {
   const username = window.location.pathname.split('/')[2]
   const [sliderOpen, setSliderOpen] = useState(false)
 
+  // const formData = new FormData();
+
   function sliderShow() {
-    // data.close = !data.close
     setSliderOpen(!sliderOpen)
   }
 
-  // function click(id){
-  //   console.log(id,' button click');
-  // }
-
-  function click(e){
+  function updateTask(e){
     e.preventDefault()
     handleTab(
       true,
@@ -29,12 +26,12 @@ function Card({handleTab, data, index, refreshData}) {
     ) 
   }
 
-  function deleteTask(e){
+  async function deleteTask(e){
     e.preventDefault()
     let taskId = data._id
 
     //delete task request
-    axios.delete(`http://localhost:8080/user/${username}/${taskId}`,
+    await axios.delete(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${taskId}`,
       {
         withCredentials: true,  
       })
@@ -42,7 +39,7 @@ function Card({handleTab, data, index, refreshData}) {
       .catch((error) => console.log(error))
 
     //request: get all tasks after delete one task
-    axios.get(`http://localhost:8080/user/${username}`,
+    await axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`,
     {
       withCredentials: true,  
     })
@@ -50,6 +47,19 @@ function Card({handleTab, data, index, refreshData}) {
       .catch((error) => console.log(error))
  
   }
+
+  // function downloadFile(e){
+  //   e.preventDefault()
+  //   // console.log(data._id);
+  //   // console.log(e.target.attributes['data-value'].value);
+  //   // formData.append("taskId", data._id)
+  //   // formData.append("userFile", fileName)
+
+  //   let taskId = data._id
+  //   let fileName = e.target.attributes['data-value'].value
+
+  //   axios.get()
+  // }
 
   return (
     <div className='relative flex-shrink-0 w-60 h-96 px-8 py-8 rounded-[35px] bg-zinc-600/30 text-white overflow-hidden mb-8'>
@@ -65,7 +75,7 @@ function Card({handleTab, data, index, refreshData}) {
               <RiDeleteBin6Line size='0.9em' className='text-red-500'/>
             </button>
 
-            <button onClick={click} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
+            <button onClick={updateTask} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
               <RxUpdate size='0.9em' className='text-green-500'/>
             </button>
 
@@ -79,9 +89,13 @@ function Card({handleTab, data, index, refreshData}) {
             <div className={`tag relative pb-2 px-8 block`}>
             <h3 className='text-sm font-semibold'>Priority: {data.priority}</h3>
             <h3 className='text-sm font-semibold'>Status: {data.status}</h3>
-            <h3 className='text-sm font-semibold flex cursor-pointer'><FaRegFileAlt/>File.txt</h3>
-            <h3 className='text-sm font-semibold flex cursor-pointer'><FaRegFileAlt/> Pending</h3>
-            <h3 className='text-sm font-semibold flex cursor-pointer'><FaRegFileAlt/> Pending</h3>
+           {
+             data.files.map(file => (
+              <a href={`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${data._id}/${file.userFileName}`} download={file.userFileName}>
+                <h3 className='text-sm font-semibold flex cursor-pointer mt-1' data-value={file.userFileName}><FaRegFileAlt/>{file.userFileName}</h3>
+              </a>
+             ))
+           }
             </div>
             ) : null
           }

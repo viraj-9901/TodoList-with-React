@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Link, useNavigate } from 'react-router-dom';  
+import { useNavigate } from 'react-router-dom';  
 import axios from 'axios'
 import toast from 'react-hot-toast';
 
@@ -9,7 +9,7 @@ function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     e.preventDefault()
     const username = window.location.pathname.split('/')[2]
 
@@ -17,7 +17,7 @@ function ChangePassword() {
     formData.append("oldPassword", e.target.oldPassword.value);
     formData.append("newPassword", e.target.newPassword.value);
 
-    axios.put(`http://localhost:8080/user/${username}/changePassword`, formData,    
+    await axios.put(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/changePassword`, formData,    
           {
             headers:{'Content-Type': 'multipart/form-data'},
             withCredentials: true,

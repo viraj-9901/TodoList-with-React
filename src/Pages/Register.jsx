@@ -11,7 +11,7 @@ function Register() {
   const [password, setPassword] = useState("")
   
   
-  const registerUser = (e) => {
+  const registerUser = async (e) => {
     e.preventDefault()
 
       const formData = new FormData();
@@ -20,7 +20,7 @@ function Register() {
        formData.append("password", e.target.password.value);
        console.log(formData);
 
-    axios.post('http://localhost:8080/user/register', formData,    
+    await axios.post(`${process.env.URI_DOMAIN_PORT}/user/register`, formData,    
           {
             headers:{'Content-Type': 'multipart/form-data'}
           }

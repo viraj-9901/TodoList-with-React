@@ -20,8 +20,8 @@ function Navbar() {
     }
 
     //logout user API integration
-    function logoutUser(){
-        axios.post('http://localhost:8080/user/logout',{},{
+    async function logoutUser(){
+        await axios.post(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/logout`,{},{
             withCredentials: true,
         })
             .then((response) => {

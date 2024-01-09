@@ -12,14 +12,14 @@ function Login() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginUser = (e) => {
+  const loginUser = async (e) => {
     e.preventDefault()
 
     const formData = new FormData();
     formData.append("username", e.target.username.value);
     formData.append("password", e.target.password.value);
 
-    axios.post('http://localhost:8080/user/login', formData,    
+    await axios.post(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/login`, formData,    
           {
             headers:{'Content-Type': 'multipart/form-data'},
             withCredentials: true,

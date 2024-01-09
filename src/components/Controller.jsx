@@ -25,7 +25,7 @@ function Controller({handleTab, taskList}) {
   
   async function applyQuery(e){
     e.preventDefault();
-    const response = await axios.get(`http://localhost:8080/user/${username}?priority=${formData.priority}&status=${formData.status}&sort=${formData.sort}`,
+    const response = await axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}?priority=${formData.priority}&status=${formData.status}&sort=${formData.sort}`,
       {
         withCredentials: true,  
       })
@@ -44,7 +44,7 @@ function Controller({handleTab, taskList}) {
       sort:""
     })
 
-    let response = await axios.get(`http://localhost:8080/user/${username}`,
+    let response = await axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`,
       {
         withCredentials: true,  
       })
