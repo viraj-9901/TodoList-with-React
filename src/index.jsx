@@ -10,6 +10,8 @@ import Home from './Pages/Home';
 import ChangePassword from './components/ChangePassword';
 import { Provider } from 'react-redux';
 import store from './store/Store'
+import UpdateUser from './components/UpdateUser';
+import UpdateAvatar from './components/UpdateAvatar';
 
 const router = createBrowserRouter([
   {
@@ -32,10 +34,15 @@ const router = createBrowserRouter([
         path: '/user/:username/changePassword',
         element: <ChangePassword/>
       },
-      // {
-      //   path: '/user/:username/addTask',
-      //   element: <TaskForm/>
-      // }
+      {
+        path: '/user/:username/updateUser',
+        element: <UpdateUser/>
+      },
+      {
+        path: '/user/:username/avatar',
+        element: <UpdateAvatar/>
+      }
+
     ]
   }
 ])

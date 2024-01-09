@@ -27,7 +27,11 @@ function Login() {
           )
          .then((response) => {
             navigate(`/user/${response.data.data.user.username}`)
-            dispatch(authLogin(true))
+            const userData = {
+                                username:response.data.data.user.username,
+                                email:response.data.data.user.email
+                              }
+            dispatch(authLogin(userData))
             toast.success(response.data.message);
             console.log(response);
           })

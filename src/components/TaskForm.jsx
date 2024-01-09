@@ -29,12 +29,12 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
     }
 
     const username = window.location.pathname.split('/')[2]
+    const formData = new FormData();
     
     //function: add/update task
     const taskSubmit = (e) => {
         e.preventDefault()
 
-        const formData = new FormData();
         formData.append('title',e.target.title.value);
         formData.append('description',e.target.description.value);
         formData.append('dueDate',e.target.dueDate.value);

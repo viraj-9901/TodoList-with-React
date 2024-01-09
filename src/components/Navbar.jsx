@@ -34,18 +34,6 @@ function Navbar() {
         handleMenu()
     }
 
-    //change password API integration
-    // function changePassword(){
-    //     axios.put(`http://localhost:8080/user/${username}`,{},{
-    //         withCredentials: true,
-    //     })
-    //         .then((response) => {
-    //             navigate('/')
-    //             toast.success(response.data.message)
-    //         })
-    //         .catch((error) => toast.error(error.response.data.error.message))
-    // }
-
   return (
     <>
     <div className='fixed w-full h-[6vh] top-[2%] bg-transparent-100 flex justify-between border-b border-zinc-100 border-opacity-10'>
@@ -84,7 +72,9 @@ function Navbar() {
         
         <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none 
                                                 [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-blue-300 hover:bg-opacity-25 ] mb-3'>
-            Change Avatar
+             <Link to={`/user/${username}/avatar`}>
+                Change Avatar
+            </Link>
         </button>
         <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none 
                                                 [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-indigo-300 hover:bg-opacity-25 ] mb-3'>
@@ -99,7 +89,9 @@ function Navbar() {
         </button>
         <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none 
                           [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-indigo-300 hover:bg-opacity-25 ] mb-3'>
-            Update User
+            <Link to={`/user/${username}/updateUser`}>
+                Update User
+            </Link>
         </button>
         
         <button onClick={logoutUser} className='relative rounded-lg font-semibold text-white items-center focus:outline-none 
