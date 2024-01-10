@@ -6,6 +6,7 @@ import {useDispatch} from 'react-redux';
 import {logout as authLogout} from '../store/authSlice'
 import {useSelector} from 'react-redux'
 import toast from 'react-hot-toast';
+import { RxCross2 } from "react-icons/rx";
 
 function Navbar() {
     const dispatch = useDispatch()
@@ -65,8 +66,9 @@ function Navbar() {
                 </Link> 
             </button>
 
-            <button onClick={handleMenu} className='relative rounded-full font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-purple-300 hover:bg-opacity-25 ] hover:bottom-[5%]'>
-                <FaUserLarge className='w-5 h-4'/>
+            <button onClick={handleMenu} className='relative rounded-full font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-purple-300 hover:bg-opacity-25 ] hover:bottom-[5%]'> 
+                {menu? <RxCross2 className='w-5 h-4'/> : <FaUserLarge className='w-5 h-4'/>}
+                {/* <FaUserLarge className='w-5 h-4'/> */}
             </button>
         </div>
     </div>
@@ -74,6 +76,8 @@ function Navbar() {
     { ( menu && authStatus ) ? (
     <div className='fixed w-60 h-screen top-[8vh] flex flex-col bg-zinc-800/90 bg-opacity-5 border-l border-zinc-700 right-0 pt-5 z-[20]  '>
         
+       
+
         <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none 
                                                 [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-blue-300 hover:bg-opacity-25 ] mb-3'>
              <Link to={`/user/${username}/avatar`}>

@@ -42,7 +42,8 @@ function UpdateAvatar() {
   }
 
   //function: cancel buntton
-  function cancelAvatar(){
+  function cancelAvatar(e){
+    e.preventDefault()
     navigate(-1)
   }
 
@@ -74,7 +75,7 @@ function UpdateAvatar() {
                             }} />
         </label>
         
-        <button 
+        <button onClick={removeProfile}
           className="form-input w-full rounded-lg font-bold text-white focus:outline-none mb-3
           [ p-3 md:p-4 lg:p-4 ] 
           [ transition-colors duration-500 ] 

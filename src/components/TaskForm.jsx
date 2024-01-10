@@ -3,11 +3,12 @@ import { motion } from "framer-motion"
 import DatePicker from "react-datepicker";
 import axios from 'axios'
 import toast from 'react-hot-toast';
-
+import { RxCross1 } from "react-icons/rx";
 import "react-datepicker/dist/react-datepicker.css";
 
 function TaskForm({handleTab, reference, type, data, taskList}) {
-    
+    let tempName = [];
+
     const [calOpen, setCalOpen] = useState(false)
 
     const [title, setTitle] = useState(data.title || "")
@@ -15,7 +16,8 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
     const [dueDate, setDueDate] = useState(new Date());
     const [priority, setPriority] = useState(data.priority || "")
     const [status, setStatus] = useState(data.status || "")
-    const [attachment, setAttachment] = useState(data.files || [])
+    const [attachment, setAttachment] = useState(data.files || [] )
+    const [taskFiles, setTaskFiles] = useState(data.files || [])
 
     Date.prototype.dateFormat = function(dueDate){
         let month = dueDate.getMonth();
@@ -34,9 +36,9 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
     
     //function: add/update task
     const taskSubmit = async (e) => {
+        try {
         e.preventDefault()
-
-        let attachments = e.target.attachment.files.length
+        let attachments = e.target.attachment.files
 
         formData.append('title',e.target.title.value);
         formData.append('description',e.target.description.value);
@@ -44,11 +46,13 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
         formData.append('priority',e.target.priority.value);
         formData.append('status',e.target.status.value);
 
+        // for(let i = 0; i < uploadFile.length; i ++){
+        //     formData.append('files',e.target.attachment.files[i]);
+        // }
 
-        for(let i = 0; i < attachments; i ++){
-            formData.append('files',e.target.attachment.files[i]);
+        for(let i = 0; i < attachments.length; i ++){
+            formData.append('files',attachments[i]);
         }
-
         if(type[1] === 'POST'){
             await axios.post(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`, formData, 
             {
@@ -80,13 +84,16 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
 
         await axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`,
         {
-        withCredentials: true,  
+            withCredentials: true,  
         })
         .then(response => taskList(response.data.message))
         .catch((error) => console.log(error))
 
         // cancelClick()
-    }   
+    } catch (error) {
+        toast.error(error) 
+    }
+}
 
     //function: cancel task form
     function cancelClick(){
@@ -160,17 +167,54 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
                 </label>
             </div>
 
-            <label htmlFor="attachment" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
-            <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
-                            [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
-                            [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] 
-                            file:bg-transparent file:border-0 file:py-2 file:hidden file:" 
-                            type="file" name="attachment" id="attachment" placeholder="attachment(s)" 
-                            onSelect={(value) => {
-                                setAttachment(value)
-                            }}  multiple/>
-       
-            </label>
+            {
+                (taskFiles.length > 0)? (
+                    taskFiles.map((file) => (
+                        <p className='w-fit h-fit bg-black/20 rounded-lg font-bold text-[#333] p-1 pl-5 mb-1 flex'>{file.userFileName || file} 
+                            {/* <a href={`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${data._id}/delete/${file.userFileName || file}`}> */}
+                                <RxCross1 className='relative top-1 ml-10 font-bold text-lg hover:text-white'/>
+                            {/* </a>  */}
+                        </p>
+                    ))
+                ) : null
+            }
+           
+
+
+            {/* {
+                (attachment.length < 3)? (
+                    attachment.map((file) => (
+                        <p className='w-full h-fit bg-black/20 rounded-lg font-bold text-[#333] p-1 pl-5 mb-1 flex'>{file.userFileName || file.name} <RxCross1 className='relative top-1 ml-10 font-bold text-lg hover:text-white'/> </p>
+                    ))
+                ) : null
+            } */}
+
+            { (taskFiles.length < 3)?
+                ( 
+                <>
+                <label htmlFor="attachment" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+            
+                <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
+                                [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
+                                [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] 
+                                file:bg-transparent file:border-0 file:py-2 file:hidden file:" 
+                                type="file" name="attachment" id="attachment" placeholder="attachment(s)" multiple
+                                onChange={(value) => {
+                                    setAttachment(value)
+                                    // setTaskFiles([...taskFiles, value.target.files])
+                                    
+                                    let files = value.target.files
+                                    for(let i = 0; i < files.length; i++){
+                                        tempName.push(files[i].name)
+                                    }
+                                    setTaskFiles([...taskFiles, ...tempName])
+                                }}  
+                />
+        
+                </label>
+                </>
+                ) : null
+            } 
         
             <button type='submit' className="form-input w-full rounded-lg font-bold text-white focus:outline-none
             [ p-3 md:p-4 lg:p-4 ] 

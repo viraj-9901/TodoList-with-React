@@ -48,19 +48,6 @@ function Card({handleTab, data, index, refreshData}) {
  
   }
 
-  // function downloadFile(e){
-  //   e.preventDefault()
-  //   // console.log(data._id);
-  //   // console.log(e.target.attributes['data-value'].value);
-  //   // formData.append("taskId", data._id)
-  //   // formData.append("userFile", fileName)
-
-  //   let taskId = data._id
-  //   let fileName = e.target.attributes['data-value'].value
-
-  //   axios.get()
-  // }
-
   return (
     <div className='relative flex-shrink-0 w-60 h-96 px-8 py-8 rounded-[35px] bg-zinc-600/30 text-white overflow-hidden mb-8'>
         <p className='text-sm font-semibold leading-tight'><span className='text-red'>Title:</span> {data.title}</p>
