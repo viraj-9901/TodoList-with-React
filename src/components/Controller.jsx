@@ -30,8 +30,7 @@ function Controller({handleTab, taskList}) {
         withCredentials: true,  
       })
     toast.success("Task filtered!")
-    let tasks = response.data.message                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-    // console.log("this tasks from applyQuery: ",tasks);
+    let tasks = response.data.message                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
     taskList(tasks)
   }
 
@@ -124,14 +123,12 @@ function Controller({handleTab, taskList}) {
           </button>
 
           <button onClick={resetFilter} className='relative w-44 h-8 rounded-lg bg-green-100 flex justify-center items-center p-3 mt-5'>
-            {/* <FaPen className='text-lg mr-3'/>  */}
             <p className='text-lg font-medium tracking-tight'>Reset</p>
           </button>
 
-          <button onClick={resetFilter} className='relative w-44 h-8 rounded-lg bg-green-100 flex justify-center items-center p-3 mt-5'>
-            {/* <FaPen className='text-lg mr-3'/>  */}
+          {/* <button onClick={resetFilter} className='relative w-44 h-8 rounded-lg bg-green-100 flex justify-center items-center p-3 mt-5'>
             <p className='text-lg font-medium tracking-tight'>Get All Tasks</p>
-          </button>
+          </button> */}
 
         </form>
     </div>

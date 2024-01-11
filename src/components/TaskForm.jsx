@@ -104,6 +104,36 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
     function HandleCalender(){
         setCalOpen(!calOpen)
     }
+
+    //function: delete file
+    async function HandleDeleteFile(e){
+        try {
+            e.preventDefault()
+            let taskId = data._id
+            let fileName = e.target.id
+
+            await axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${taskId}/delete/${fileName}`,{
+                withCredentials: true,  
+            })
+            .then((response) => {
+                    toast.success("file delete successfully")
+                    let fileList = [...taskFiles];
+                    fileList.splice(fileName,1);
+                    setTaskFiles(fileList)
+
+                })
+            .catch((error) => toast.error("Something went wrong"))
+
+            // await axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`,
+            // {
+            //     withCredentials: true,  
+            // })
+            // .then(response => taskList(response.data.message))
+            // .catch((error) => console.log(error))
+        } catch (error) {
+            
+        }
+    }
     
   return (
     // <div className='relative flex justify-between top-[8vh] w-full h-full z-[50]'>
@@ -171,9 +201,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
                 (taskFiles.length > 0)? (
                     taskFiles.map((file) => (
                         <p className='w-fit h-fit bg-black/20 rounded-lg font-bold text-[#333] p-1 pl-5 mb-1 flex'>{file.userFileName || file} 
-                            {/* <a href={`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${data._id}/delete/${file.userFileName || file}`}> */}
-                                <RxCross1 className='relative top-1 ml-10 font-bold text-lg hover:text-white'/>
-                            {/* </a>  */}
+                            <RxCross1 onClick={HandleDeleteFile} className='relative top-1 ml-10 font-bold text-lg hover:text-white' id={file.userFileName || file}/>
                         </p>
                     ))
                 ) : null
@@ -189,7 +217,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
                 ) : null
             } */}
 
-            { (taskFiles.length < 3)?
+            { (taskFiles.length < 4)?
                 ( 
                 <>
                 <label htmlFor="attachment" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
