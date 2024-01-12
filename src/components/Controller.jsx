@@ -62,7 +62,7 @@ function Controller({handleTab, taskList}) {
   return (
     <>
     <div className='w-[16%] h-full bg-transparent py-7 px-7 border-r border-zinc-100'>
-        <button onClick={addTask} className='relative w-44 h-16 rounded-lg bg-green-100 flex justify-center items-center hover:scale-[1.1] p-3'>
+        <button onClick={addTask} className='relative w-44 h-16 rounded-lg bg-green-100 flex justify-center items-center hover:scale-[1.03] p-3'>
           <FaPen className='text-lg mr-3'/> 
           <p className='text-lg font-medium tracking-tight'>Add Task</p>
         </button>

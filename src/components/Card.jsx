@@ -4,9 +4,9 @@ import { FaArrowDownLong } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { RxUpdate } from "react-icons/rx";
-import axios from 'axios'
+import axios from 'axios';
 
-function Card({handleTab, data, index, refreshData}) {
+function Card({handleTab, data, key, refreshData}) {
 
   const username = window.location.pathname.split('/')[2]
   const [sliderOpen, setSliderOpen] = useState(false)
@@ -49,7 +49,7 @@ function Card({handleTab, data, index, refreshData}) {
   }
 
   return (
-    <div className='relative flex-shrink-0 w-60 h-96 px-8 py-8 rounded-[35px] bg-zinc-600/30 text-white overflow-hidden mb-8'>
+    <div className='relative flex-shrink-0 w-60 h-96 px-8 py-8 rounded-[35px] bg-zinc-600/30 text-white overflow-hidden mb-8' key={data._id}>
         <p className='text-sm font-semibold leading-tight'><span className='text-red'>Title:</span> {data.title}</p>
         <p className='text-sm font-semibold leading-tight mt-5 text-balance'>Description: {data.description}</p>
         <p className='text-sm font-semibold leading-tight mt-5'>due-Date: {(data.dueDate).split('T')[0]}</p>

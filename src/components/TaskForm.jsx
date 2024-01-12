@@ -53,6 +53,8 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
         for(let i = 0; i < attachments.length; i ++){
             formData.append('files',attachments[i]);
         }
+
+        
         if(type[1] === 'POST'){
             await axios.post(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`, formData, 
             {
@@ -69,6 +71,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
 
         if(type[1] === 'PUT'){
             let taskId = data._id
+            console.log(formData);
             await axios.put(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${taskId}`, formData,
             {
                 withCredentials: true,
@@ -78,6 +81,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
             .then((response) => {
                 console.log(response)
                 toast.success("Task update successfully!")
+                
             })
             .catch((error) => toast.error(error.response.data.error.message))
         }
@@ -169,8 +173,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
             </label>
            
             <div className='relative flex flex-row justify-around'>
-                <label htmlFor="priority" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333] 
-                                                ">
+                <label htmlFor="priority" className="form-label w-[45%] relative block mb-4 text-black/50 focus-within:text-[#333]  ">                  
                     <select className='form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
                                     [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
                                     [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] '
@@ -182,8 +185,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
                     </select>
                 </label>
 
-                <label htmlFor="status" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333] 
-                                                ">
+                <label htmlFor="status" className="form-label w-[45%] relative block mb-4 text-black/50 focus-within:text-[#333] "> 
                     <select className='form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  
                                     [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] 
                                     [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ] '
@@ -200,9 +202,9 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
             {
                 (taskFiles.length > 0)? (
                     taskFiles.map((file) => (
-                        <p className='w-fit h-fit bg-black/20 rounded-lg font-bold text-[#333] p-1 pl-5 mb-1 flex'>{file.userFileName || file} 
+                        <h6 className='w-fit h-fit bg-black/20 rounded-lg font-bold text-[#333] p-1 pl-5 mb-1 flex'>{file.userFileName || file} 
                             <RxCross1 onClick={HandleDeleteFile} className='relative top-1 ml-10 font-bold text-lg hover:text-white' id={file.userFileName || file}/>
-                        </p>
+                        </h6>
                     ))
                 ) : null
             }
@@ -236,6 +238,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
                                         tempName.push(files[i].name)
                                     }
                                     setTaskFiles([...taskFiles, ...tempName])
+                                    
                                 }}  
                 />
         

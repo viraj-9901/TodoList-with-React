@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Card from './Card'
 import axios from 'axios'
-import {useSelector} from 'react-redux'
+import {useSelector} from 'react-redux';
 
 function List({reference, handleTab, listData, taskList}) {
   const ref = useRef(null)
@@ -12,7 +12,6 @@ function List({reference, handleTab, listData, taskList}) {
   const username = window.location.pathname.split('/')[2]
   
   useEffect(() => {
-    console.log("I'm reaced here at List component");
     if(authStatus === true){
       (async () => { 
         let response = await axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`,
@@ -34,12 +33,12 @@ function List({reference, handleTab, listData, taskList}) {
         {
           (listData.length !== 0) ? 
           (
-            listData.map((item,key) => (
-              <Card data={item} reference={ref} index={key} handleTab={handleTab} refreshData={refreshData} />
+            listData.map((item) => (
+              <Card data={item} reference={ref} handleTab={handleTab} refreshData={refreshData} />
             ))
           ) : (
-            data.map((item,key) => (
-              <Card data={item} reference={ref} index={key} handleTab={handleTab} refreshData={refreshData} />
+            data.map((item) => (
+              <Card data={item} reference={ref} handleTab={handleTab} refreshData={refreshData} />
             ))
           )
         }  

@@ -20,7 +20,7 @@ function Register() {
        formData.append("password", e.target.password.value);
        console.log(formData);
 
-    await axios.post(`${process.env.URI_DOMAIN_PORT}/user/register`, formData,    
+    await axios.post(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/register`, formData,    
           {
             headers:{'Content-Type': 'multipart/form-data'}
           }
