@@ -13,6 +13,7 @@ import store from './store/Store'
 import UpdateUser from './components/UpdateUser';
 import UpdateAvatar from './components/UpdateAvatar';
 import PageNotFound from './Pages/PageNotFound';
+import UserInfo from './components/UserInfo';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: '/user/:username/avatar',
         element: <UpdateAvatar/>
+      },
+      {
+        path: '/user/:username/userInfo',
+        element: <UserInfo/>
       },
       {
         path: '*',

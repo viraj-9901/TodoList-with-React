@@ -29,7 +29,9 @@ function Login() {
             navigate(`/user/${response.data.data.user.username}`)
             const userData = {
                                 username:response.data.data.user.username,
-                                email:response.data.data.user.email
+                                email:response.data.data.user.email,
+                                createdAt:response.data.data.user.createdAt,
+                                updatedAt:response.data.data.user.updatedAt
                               }
             dispatch(authLogin(userData))
             toast.success(response.data.message);

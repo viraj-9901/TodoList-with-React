@@ -93,7 +93,9 @@ function Navbar() {
         
         <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none 
                           [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-blue-300 hover:bg-opacity-25 ] mb-3'>
-            User Info
+            <Link to={`/user/${username}/userInfo`}>
+                User Info
+            </Link>
         </button>
         <button className='relative rounded-lg font-semibold text-white items-center focus:outline-none 
                           [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-indigo-300 hover:bg-opacity-25 ] mb-3'>
