@@ -26,7 +26,7 @@ function Register() {
           }
           )
          .then((response) => {
-            navigate(`/user/login`)
+            // navigate(`/user/login`)
             toast.success(response.data.message);
           })
          .catch((error) => toast.error(error.response.data.error.message))

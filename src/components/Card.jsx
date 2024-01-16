@@ -5,8 +5,10 @@ import { RxCross1 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { RxUpdate } from "react-icons/rx";
 import axios from 'axios';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
-function Card({handleTab, data, key, refreshData}) {
+function Card({handleTab, data, refreshData}) {
 
   const username = window.location.pathname.split('/')[2]
   const [sliderOpen, setSliderOpen] = useState(false)

@@ -34,11 +34,11 @@ function List({reference, handleTab, listData, taskList}) {
           (listData.length !== 0) ? 
           (
             listData.map((item) => (
-              <Card data={item} reference={ref} handleTab={handleTab} refreshData={refreshData} />
+              <Card data={item} reference={ref} handleTab={handleTab} refreshData={refreshData} key={item._id} />
             ))
           ) : (
             data.map((item) => (
-              <Card data={item} reference={ref} handleTab={handleTab} refreshData={refreshData} />
+              <Card data={item} reference={ref} handleTab={handleTab} refreshData={refreshData} key={item._id}/>
             ))
           )
         }  

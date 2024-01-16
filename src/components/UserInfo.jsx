@@ -70,7 +70,7 @@ function UserInfo() {
         </button>
 
         <div className="mt-8 text-center">
-        <p className="text-xs">Want to update? 
+        <p className="text-xs">Want to update info? 
           <button className='text-white hover:text-green-900 [ transition-colors duration-500 ]'>
           <Link to={`/user/${username}/updateUser`}>
             Update User
