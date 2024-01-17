@@ -34,6 +34,7 @@ function Login() {
                                 updatedAt:response.data.data.user.updatedAt
                               }
             dispatch(authLogin(userData))
+            localStorage.setItem('loginStatus', true)
             toast.success(response.data.message);
             console.log(response);
           })

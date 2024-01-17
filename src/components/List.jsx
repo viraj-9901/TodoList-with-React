@@ -7,12 +7,13 @@ function List({reference, handleTab, listData, taskList}) {
   const ref = useRef(null)
 
   const authStatus = useSelector((state) => state.auth.status)
+  let localAuthStatus = localStorage.getItem('loginStatus')
   const [data, setData] = useState([])
   
   const username = window.location.pathname.split('/')[2]
   
   useEffect(() => {
-    if(authStatus === true){
+    if(authStatus || localAuthStatus){
       (async () => { 
         let response = await axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}`,
           {
@@ -20,14 +21,14 @@ function List({reference, handleTab, listData, taskList}) {
           })
         setData(response.data.message)
       })()
-    }
-  },[authStatus,username])
+    } 
+  },[])
+  // [authStatus, username, window.location.reload]
 
   function refreshData(value) {
     taskList(value)
   }
 
-  // let filteredData = data.filter(task => task.priority === "important" && task.status === "hold");
   return (
     <div ref={ref} className='relative w-full h-screen flex flex-wrap gap-14 p-5 bg-transparent overflow-scroll'>
         {

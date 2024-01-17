@@ -14,27 +14,13 @@ import UpdateUser from './components/UpdateUser';
 import UpdateAvatar from './components/UpdateAvatar';
 import PageNotFound from './Pages/PageNotFound';
 import UserInfo from './components/UserInfo';
-import { useSelector } from 'react-redux';
 import VerifyAccount from './components/VerifyAccount';
-
-//this is authStatus check for stop navigate app to main page when refresh from any page
-// const ConditionalRoute = ({ condition, trueElement, falseElement }) => {
-//   return condition ? trueElement : falseElement;
-// };
-let {status} = store.getState()
-console.log(status);
-
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children:[
-      {
-        path: '/',
-        // element: status? <Home/> : <App />
-        element: status? <App/> : <Home />
-      },
       {
         path: '/user/register',
         element: <Register/>
@@ -81,7 +67,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <RouterProvider router={router} /> */}
       <RouterProvider router={router} >
         <Home />
       </RouterProvider>
