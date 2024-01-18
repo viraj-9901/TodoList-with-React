@@ -63,7 +63,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
             }
             )
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 toast.success("Task add successfully!")
             })
             .catch((error) => toast.error(error.response.data.error.message))
@@ -71,7 +71,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
 
         if(type[1] === 'PUT'){
             let taskId = data._id
-            console.log(formData);
+            // console.log(formData);
             await axios.put(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${taskId}`, formData,
             {
                 withCredentials: true,
@@ -79,7 +79,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
             }
             )
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 toast.success("Task update successfully!")
             })
             .catch((error) => toast.error(error.response.data.error.message))
@@ -166,7 +166,12 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
             <label  htmlFor="dueDate" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
             <p onClick={HandleCalender}  className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" name="dueDate" >
             dueDate: {
-                <DatePicker showIcon selected={dueDate} onSelect={(date) => setDueDate(date)} className='bg-transparent border-0 focus:border-0' value={dueDate.dateFormat(dueDate) || dueDate} id='dueDate'/>
+                <DatePicker 
+                    showIcon 
+                    selected={dueDate} 
+                    onSelect={(date) => setDueDate(date)} 
+                    minDate={new Date()}
+                    className='bg-transparent border-0 focus:border-0' value={dueDate.dateFormat(dueDate) || dueDate} id='dueDate'/>
             }    
             </p>
             </label>
@@ -245,7 +250,15 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
                 </>
                 ) : null
             } 
-        
+
+           
+            <label htmlFor="assignUser" className="form-label relative block mb-4 text-black/50 focus-within:text-[#333]">
+            <input className="form-input block w-full rounded-lg leading-none focus:outline-none placeholder-black/50  [ transition-colors duration-200 ] [ py-3 pr-3 md:py-4 md:pr-4 lg:py-4 lg:pr-4 pl-5 ] [ bg-black/20 focus:bg-black/25 ] [ text-[#333] focus:text-black ]" 
+                   type="text" name="assignUser" id="assignUser" placeholder="Select user to assign task"  
+                    
+            />
+            </label>
+                    
             <button type='submit' className="form-input w-full rounded-lg font-bold text-white focus:outline-none
             [ p-3 md:p-4 lg:p-4 ] 
             [ transition-colors duration-500 ] 

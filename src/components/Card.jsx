@@ -4,11 +4,12 @@ import { FaArrowDownLong } from "react-icons/fa6";
 import { RxCross1 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { RxUpdate } from "react-icons/rx";
+import { MdOutlineAssignmentInd } from "react-icons/md";
 import axios from 'axios';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 
-function Card({handleTab, data, refreshData}) {
+function Card({handleTab, data, refreshData, handleAssignForm}) {
 
   const username = window.location.pathname.split('/')[2]
   const [sliderOpen, setSliderOpen] = useState(false)
@@ -26,6 +27,13 @@ function Card({handleTab, data, refreshData}) {
       ['Update',"PUT"],
       data
     ) 
+    handleAssignForm(false)
+  }
+
+  function assignTask(e){
+    // e.preventDefault()
+    handleAssignForm(true)
+    handleTab(false)
   }
 
   async function deleteTask(e){
@@ -66,6 +74,10 @@ function Card({handleTab, data, refreshData}) {
 
             <button onClick={updateTask} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
               <RxUpdate size='0.9em' className='text-green-500'/>
+            </button>
+
+            <button onClick={assignTask} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
+              <MdOutlineAssignmentInd size='0.9em' className='text-sky-500'/>
             </button>
 
             <button onClick={sliderShow} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>

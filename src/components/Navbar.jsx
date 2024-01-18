@@ -66,7 +66,7 @@ function Navbar() {
         </div>
     </div>
 
-    {  menu && (JSON.parse(localStorage.getItem('loginStatus')) === true) ? (
+    {  menu && JSON.parse(localStorage.getItem('loginStatus')) ? (
     <div className='fixed w-60 h-screen top-[8vh] flex flex-col bg-zinc-800/90 bg-opacity-5 border-l border-zinc-700 right-0 pt-5 z-[20]  '>
         
        

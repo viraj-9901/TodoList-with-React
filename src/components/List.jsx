@@ -3,7 +3,7 @@ import Card from './Card'
 import axios from 'axios'
 import {useSelector} from 'react-redux';
 
-function List({reference, handleTab, listData, taskList}) {
+function List({reference, handleTab, listData, taskList, handleAssignForm}) {
   const ref = useRef(null)
 
   const authStatus = useSelector((state) => state.auth.status)
@@ -35,11 +35,11 @@ function List({reference, handleTab, listData, taskList}) {
           (listData.length !== 0) ? 
           (
             listData.map((item) => (
-              <Card data={item} reference={ref} handleTab={handleTab} refreshData={refreshData} key={item._id} />
+              <Card data={item} reference={ref} handleTab={handleTab} refreshData={refreshData} key={item._id} handleAssignForm={handleAssignForm} />
             ))
           ) : (
             data.map((item) => (
-              <Card data={item} reference={ref} handleTab={handleTab} refreshData={refreshData} key={item._id}/>
+              <Card data={item} reference={ref} handleTab={handleTab} refreshData={refreshData} key={item._id} handleAssignForm={handleAssignForm} />
             ))
           )
         }  
