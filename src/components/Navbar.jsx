@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { FaUserLarge } from "react-icons/fa6";
 import { Link, useNavigate } from 'react-router-dom';  
 import axios from 'axios'
@@ -10,9 +10,29 @@ import { RxCross2 } from "react-icons/rx";
 function Navbar() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    let profileRef = useRef()
     const [menu, setMenu] = useState(false)
+    const [profileImage, setProfileImage] = useState('')
 
     const username = window.location.pathname.split('/')[2] 
+
+    // useEffect(() => {
+    //     axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/profile`,
+    //     {
+    //         withCredentials: true,
+    //     })
+    //     .then((response) => {
+    //         console.log(response.data);
+    //         setProfileImage(response.data)
+    //     })
+    //     .catch((error) => console.log(error))
+    // },[])
+
+    useEffect(() => {
+        if(JSON.parse(localStorage.getItem('loginStatus')) === true){
+            profileRef.current.src = `${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/profile`
+        }
+    },[window.location.reload, localStorage.getItem('loginStatus')])
 
     //logout user API integration
     async function logoutUser(){
@@ -60,9 +80,23 @@ function Navbar() {
                 </Link> 
             </button>
 
-            <button onClick={() => setMenu(!menu)} className='relative rounded-full font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-purple-300 hover:bg-opacity-25 ] hover:bottom-[5%]'> 
-                {menu? <RxCross2 className='w-5 h-4'/> : <FaUserLarge className='w-5 h-4'/>}
-            </button>
+            { 
+             (JSON.parse(localStorage.getItem('loginStatus')) === false)? (
+                <button onClick={() => setMenu(!menu)} className='relative rounded-full font-semibold text-white items-center focus:outline-none [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] [ bg-transparent hover:bg-purple-300 hover:bg-opacity-25 ] hover:bottom-[5%]'> 
+                    {menu? <RxCross2 className='w-5 h-4'/> : <FaUserLarge className='w-5 h-4'/>}
+                    {/* <img src=${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/profile` alt='profile' className='w-5 h-4' /> */}
+                    {/* <img ref={profileRef} alt='profile' className='w-4 h-5' /> */}
+                </button>) : (
+
+                <img onClick={() => setMenu(!menu)} 
+                    className='relative rounded-full font-semibold text-white items-center focus:outline-none 
+                                [ p-3 md:p-3 lg:p-3 ] [ transition-colors duration-500 ] 
+                                [ bg-transparent hover:bg-purple-300 hover:bg-opacity-25 ] 
+                                hover:bottom-[5%] w-[3.5rem] h-[3.5rem]'
+                    ref = {profileRef}     
+                    // src = {`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/profile`}   
+                />)
+            }
         </div>
     </div>
 
