@@ -6,8 +6,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { RxUpdate } from "react-icons/rx";
 import { MdOutlineAssignmentInd } from "react-icons/md";
 import axios from 'axios';
-import { Tooltip } from 'react-tooltip';
-import 'react-tooltip/dist/react-tooltip.css';
+import { Tooltip, Position } from 'evergreen-ui'
+
 
 function Card({handleTab, data, refreshData, handleAssignForm}) {
 
@@ -32,7 +32,7 @@ function Card({handleTab, data, refreshData, handleAssignForm}) {
 
   function assignTask(e){
     // e.preventDefault()
-    handleAssignForm(true)
+    handleAssignForm(true,data)
     handleTab(false)
   }
 
@@ -68,21 +68,29 @@ function Card({handleTab, data, refreshData, handleAssignForm}) {
           
           <div className='relative flex justify-between items-center mb-1 pt-3 pb-2 px-8'>
             
-            <button onClick={deleteTask} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
-              <RiDeleteBin6Line size='0.9em' className='text-red-500'/>
-            </button>
+            <Tooltip content="Delete task" position={Position.TOP} >
+              <button onClick={deleteTask} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
+                <RiDeleteBin6Line size='0.9em' className='text-red-500'/>
+              </button>
+            </Tooltip>
 
-            <button onClick={updateTask} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
-              <RxUpdate size='0.9em' className='text-green-500'/>
-            </button>
+            <Tooltip content="Update task" position={Position.TOP} >
+              <button onClick={updateTask} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
+                <RxUpdate size='0.9em' className='text-green-500'/>
+              </button>
+            </Tooltip>
 
-            <button onClick={assignTask} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
-              <MdOutlineAssignmentInd size='0.9em' className='text-sky-500'/>
-            </button>
+            <Tooltip content="Assign task" position={Position.TOP} >
+              <button onClick={assignTask} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
+                <MdOutlineAssignmentInd size='0.9em' className='text-sky-500'/>
+              </button>
+            </Tooltip>
 
-            <button onClick={sliderShow} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
-              {sliderOpen? <RxCross1 size='0.9em' color='#fff'/> : <FaArrowDownLong size='0.8em' color='#fff'/>} 
-            </button>
+            <Tooltip content="More info" position={Position.TOP} >
+              <button onClick={sliderShow} className='w-7 h-7 rounded-full flex items-center justify-center bg-zinc-800 cursor-pointer'>
+                {sliderOpen? <RxCross1 size='0.9em' color='#fff'/> : <FaArrowDownLong size='0.8em' color='#fff'/>} 
+              </button>
+            </Tooltip>
 
           </div>
 

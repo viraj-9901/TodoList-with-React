@@ -12,21 +12,8 @@ function Navbar() {
     const navigate = useNavigate()
     let profileRef = useRef()
     const [menu, setMenu] = useState(false)
-    const [profileImage, setProfileImage] = useState('')
 
     const username = window.location.pathname.split('/')[2] 
-
-    // useEffect(() => {
-    //     axios.get(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/profile`,
-    //     {
-    //         withCredentials: true,
-    //     })
-    //     .then((response) => {
-    //         console.log(response.data);
-    //         setProfileImage(response.data)
-    //     })
-    //     .catch((error) => console.log(error))
-    // },[])
 
     useEffect(() => {
         if(JSON.parse(localStorage.getItem('loginStatus')) === true){
@@ -48,7 +35,9 @@ function Navbar() {
             .catch((error) => toast.error(error.response.data.error.message))
         
         setMenu(false)
+     
     }
+
 
   return (
     <>

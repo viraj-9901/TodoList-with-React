@@ -13,7 +13,7 @@ function ForGround() {
   return (
     <div className='fixed w-full h-screen bg-transparent z-[10]'>
       <Toaster position="top-right"/>
-      <Navbar/>
+      <Navbar />
       <Outlet />
       {/* <Register/> */}
       {/* <Login/> */}

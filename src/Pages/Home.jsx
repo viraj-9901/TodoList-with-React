@@ -4,6 +4,7 @@ import List from '../components/List'
 import TaskForm from '../components/TaskForm'
 import { useSelector } from 'react-redux'
 import AssignTaskForm from '../components/AssignTaskForm';
+import AssignTaskForm3 from '../components/AssignTaskForm3'
 
 
 function Home() {
@@ -13,7 +14,7 @@ function Home() {
   const [data, setData] = useState("")
   const [listData, setListData] = useState([])
   const [assignCard, setAssignCard] = useState(false)
-
+  const [taskData, setTaskData] = useState("")
 
   let authStatus = useSelector((state) => state.auth.status)
   let localAuthStatus = localStorage.getItem('loginStatus')
@@ -28,8 +29,9 @@ function Home() {
     setListData(tasks)
   }
 
-  function handleAssignForm(value){
+  function handleAssignForm(value,info){
     setAssignCard(value)
+    setTaskData(info)
   }
 
   const ref = useRef(null);
@@ -48,8 +50,13 @@ function Home() {
               ) : null
             }
 
+            {/* { assignCard ? (
+                <AssignTaskForm handleAssignForm={handleAssignForm} data={taskData} reference={ref} />
+              ) : null
+            } */}
+
             { assignCard ? (
-                <AssignTaskForm handleAssignForm={handleAssignForm} data={data} reference={ref} />
+                <AssignTaskForm3 handleAssignForm={handleAssignForm} data={taskData} reference={ref} />
               ) : null
             }
 
