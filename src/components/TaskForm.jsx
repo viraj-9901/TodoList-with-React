@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function TaskForm({handleTab, reference, type, data, taskList}) {
     let tempName = [];
+    console.log('data-11-TF: ',data);
 
     const [calOpen, setCalOpen] = useState(false)
 
@@ -72,7 +73,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
         if(type[1] === 'PUT'){
             let taskId = data._id
             // console.log(formData);
-            await axios.put(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${taskId}`, formData,
+            await axios.put(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/update/${taskId}`, formData,
             {
                 withCredentials: true,
                 headers:{'Content-Type': 'multipart/form-data'},
@@ -207,7 +208,7 @@ function TaskForm({handleTab, reference, type, data, taskList}) {
                 (taskFiles.length > 0)? (
                     taskFiles.map((file) => (
                         <h6 className='w-fit h-fit bg-black/20 rounded-lg font-bold text-[#333] p-1 pl-5 mb-1 flex'>{file.userFileName || file} 
-                            <RxCross1 onClick={HandleDeleteFile} className='relative top-1 ml-10 font-bold text-lg hover:text-white' id={file.userFileName || file}/>
+                            <RxCross1 onClick={HandleDeleteFile} className='relative top-1 ml-10 font-bold text-lg hover:text-white cursor-pointer' id={file.userFileName || file}/>
                         </h6>
                     ))
                 ) : null

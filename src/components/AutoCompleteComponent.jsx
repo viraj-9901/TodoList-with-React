@@ -4,7 +4,7 @@ import Autocomplete, { createFilterOptions }  from '@mui/material/Autocomplete';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-function AutoCompleteComponent({getSelectedUsers, selectedUsers}) {
+function AutoCompleteComponent({getSelectedUsers}) {
     const [options, setOptions] = useState([])
     const [value, setValue] = useState(null)
     const [inputValue, setInputValue] = useState('');

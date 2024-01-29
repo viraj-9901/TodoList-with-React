@@ -31,8 +31,11 @@ function Card({handleTab, data, refreshData, handleAssignForm}) {
   }
 
   function assignTask(e){
-    // e.preventDefault()
-    handleAssignForm(true,data)
+    e.preventDefault()
+    handleAssignForm(
+      true,
+      data
+    )
     handleTab(false)
   }
 
@@ -41,7 +44,7 @@ function Card({handleTab, data, refreshData, handleAssignForm}) {
     let taskId = data._id
 
     //delete task request
-    await axios.delete(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${taskId}`,
+    await axios.delete(`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/delete/${taskId}`,
       {
         withCredentials: true,  
       })
@@ -100,7 +103,7 @@ function Card({handleTab, data, refreshData, handleAssignForm}) {
             <h3 className='text-sm font-semibold'>Status: {data.status}</h3>
            {
              data.files.map(file => (
-              <a href={`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${data._id}/${file.userFileName}`} download={file.userFileName}>
+              <a href={`${process.env.REACT_APP_URI_DOMAIN_PORT}/user/${username}/${data._id}/download/${file.userFileName}`} download={file.userFileName}>
                 <h3 className='text-sm font-semibold flex cursor-pointer mt-1' data-value={file.userFileName}><FaRegFileAlt/>{file.userFileName}</h3>
               </a>
              ))

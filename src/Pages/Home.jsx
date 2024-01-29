@@ -3,9 +3,7 @@ import Controller from '../components/Controller'
 import List from '../components/List'
 import TaskForm from '../components/TaskForm'
 import { useSelector } from 'react-redux'
-import AssignTaskForm from '../components/AssignTaskForm';
-import AssignTaskForm3 from '../components/AssignTaskForm3'
-
+import AssignTaskForm from '../components/AssignTaskForm'
 
 function Home() {
 
@@ -43,20 +41,15 @@ function Home() {
           <>
             <Controller className='w-[16%]' handleTab={handleTab} taskList={taskList} /> 
             
-            <List className='w-[84%]' handleTab={handleTab} listData={listData} taskList={taskList} handleAssignForm={handleAssignForm}/>
+            <List className='w-[84%]' handleTab={handleTab} listData={listData} taskList={taskList} handleAssignForm={handleAssignForm} />
         
             {tab? (
               <TaskForm handleTab={handleTab} reference={ref} type={btnType} data={data} taskList={taskList} />
               ) : null
             }
 
-            {/* { assignCard ? (
-                <AssignTaskForm handleAssignForm={handleAssignForm} data={taskData} reference={ref} />
-              ) : null
-            } */}
-
             { assignCard ? (
-                <AssignTaskForm3 handleAssignForm={handleAssignForm} data={taskData} reference={ref} />
+                <AssignTaskForm handleAssignForm={handleAssignForm} data={taskData} reference={ref} taskList={taskList} />
               ) : null
             }
 
